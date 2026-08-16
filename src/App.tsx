@@ -6,6 +6,7 @@ import {
   type ReactNode,
   type SubmitEvent,
 } from "react";
+import emailjs from "@emailjs/browser";
 import "./App.css";
 import logo from "./assets/mws-logo.jpeg";
 import cassel from "./assets/cassel.jpg";
@@ -35,6 +36,17 @@ const COMPANY = {
   registernummer: "HRB 000000", // TODO
   ustId: "DE290085905",
   aufsichtsbehoerde: "[zuständiges Ordnungsamt Kassel einsetzen]", // TODO, relevant for §34a GewO
+};
+
+// From the EmailJS dashboard (emailjs.com): Email Services → your service id;
+// Email Templates → your template id; Account → General → public key.
+// These three values are meant to ship in the client bundle — EmailJS's
+// security model is domain allowlisting + rate limits in the dashboard, not
+// secrecy of these ids.
+const EMAILJS = {
+  serviceId: "service_contact_security", // TODO
+  templateId: "template_8tlahii", // TODO
+  publicKey: "X9LXqYD9b2dbAVLHm", // TODO
 };
 
 const NAV_LINKS = [
@@ -580,9 +592,9 @@ function DatenschutzModal({ onClose }: { onClose: () => void }) {
         <div className="prose">
           <h4 className="block-heading">1. Datenschutz auf einen Blick</h4>
           <p className="block-p">
-            Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Nachfolgend
-            informieren wir Sie darüber, welche Daten wir erheben, wie wir sie
-            nutzen und welche Rechte Ihnen zustehen.
+            Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst.
+            Nachfolgend informieren wir Sie darüber, welche Daten wir erheben,
+            wie wir sie nutzen und welche Rechte Ihnen zustehen.
           </p>
           <p className="block-p">
             <strong>Verantwortlicher für die Datenverarbeitung:</strong>
@@ -676,20 +688,19 @@ function HaftungsausschlussModal({ onClose }: { onClose: () => void }) {
             <strong>Haftung für Inhalte:</strong>
           </p>
           <p className="block-p">
-            Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene
-            Inhalte auf diesen Seiten nach den allgemeinen Gesetzen
-            verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte
-            oder gespeicherte fremde Informationen zu überwachen oder nach
-            Umständen zu forschen, die auf eine rechtswidrige Tätigkeit
-            hinweisen.
+            Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte
+            auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Wir
+            sind jedoch nicht verpflichtet, übermittelte oder gespeicherte
+            fremde Informationen zu überwachen oder nach Umständen zu forschen,
+            die auf eine rechtswidrige Tätigkeit hinweisen.
           </p>
           <p className="block-p">
             <strong>Haftung für Links:</strong>
           </p>
           <p className="block-p">
-            Unsere Website enthält Links zu externen Websites Dritter, auf
-            deren Inhalte wir keinen Einfluss haben. Deshalb können wir für
-            diese fremden Inhalte auch keine Gewähr übernehmen.
+            Unsere Website enthält Links zu externen Websites Dritter, auf deren
+            Inhalte wir keinen Einfluss haben. Deshalb können wir für diese
+            fremden Inhalte auch keine Gewähr übernehmen.
           </p>
           <p className="block-p">
             <strong>Urheberrecht:</strong>
@@ -710,24 +721,45 @@ function ContactForm() {
     email: "",
     phone: "",
     message: "",
+    company: "", // honeypot — real visitors never see or fill this field
   });
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle",
+  );
 
   function handleChange(field: keyof typeof form) {
     return (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setForm((f) => ({ ...f, [field]: e.target.value }));
   }
 
-  // NOTE: no backend is wired up yet. Submitting opens the visitor's email
-  // client with the message pre-filled. Replace with a real form endpoint
-  // (e.g. your own API, Formspree, Netlify Forms) before launch.
-  function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
-    const body = `Name: ${form.name}\nE-Mail: ${form.email}\nTelefon: ${form.phone}\n\n${form.message}`;
-    window.location.href = `mailto:${COMPANY.email}?subject=${encodeURIComponent(
-      "Kontaktanfrage über die Website",
-    )}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+
+    // Honeypot tripped — silently pretend it worked, don't actually send.
+    if (form.company) {
+      setStatus("sent");
+      return;
+    }
+
+    setStatus("sending");
+    try {
+      await emailjs.send(
+        EMAILJS.serviceId,
+        EMAILJS.templateId,
+        {
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          message: form.message,
+        },
+        { publicKey: EMAILJS.publicKey },
+      );
+      setStatus("sent");
+      setForm({ name: "", email: "", phone: "", message: "", company: "" });
+    } catch (error) {
+      console.error("EmailJS send failed:", error);
+      setStatus("error");
+    }
   }
 
   return (
@@ -772,12 +804,32 @@ function ContactForm() {
           onChange={handleChange("message")}
         />
       </label>
-      <button type="submit" className="btn btn-primary">
-        Nachricht senden
+      <label className="field field-honeypot" aria-hidden="true">
+        <span>Firma</span>
+        <input
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={form.company}
+          onChange={handleChange("company")}
+        />
+      </label>
+      <button
+        type="submit"
+        className="btn btn-primary"
+        disabled={status === "sending"}
+      >
+        {status === "sending" ? "Wird gesendet…" : "Nachricht senden"}
       </button>
-      {sent && (
+      {status === "sent" && (
         <p className="form-note">
-          Ihr E-Mail-Programm wird geöffnet, um die Nachricht zu versenden.
+          Vielen Dank! Ihre Nachricht wurde erfolgreich versendet.
+        </p>
+      )}
+      {status === "error" && (
+        <p className="form-note form-note--error">
+          Ihre Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es
+          erneut oder schreiben Sie uns direkt an {COMPANY.email}.
         </p>
       )}
     </form>
