@@ -194,56 +194,157 @@ export const SERVICES: Service[] = [
 
 export type Section = {
   id: string
-  kicker: string
   title: string
   subtitle?: string
-  tone: 'light' | 'alt' | 'dark'
   blocks: Block[]
 }
 
+// Rendered in this order, with the Leistungen (services) block inserted
+// between the first ('einsatzgebiet') and second ('philosophie') entries —
+// see App.tsx.
 export const SECTIONS: Section[] = [
   {
-    id: 'technik',
-    kicker: '03',
-    title: 'Sicherheitstechnik & Verkauf',
-    subtitle: 'Kameras, Überwachungssysteme & Sicherheitsprodukte',
-    tone: 'alt',
+    id: 'einsatzgebiet',
+    title: 'Einsatzgebiet',
     blocks: [
-      { type: 'p', text: 'Moderne Sicherheit besteht aus dem Zusammenspiel von **Menschen, Technik und durchdachten Abläufen**.' },
+      { type: 'p', text: 'Unsere Hauptniederlassung befindet sich in **Kassel**.' },
       {
         type: 'p',
-        text: 'Neben klassischen Sicherheitsdienstleistungen soll MWS deshalb auch Sicherheitstechnik und ausgewählte Sicherheitsprodukte anbieten bzw. vermitteln.',
+        text: 'Von unserem Standort in der **Leipziger Straße 242, 34123 Kassel** koordinieren wir unsere Sicherheitsdienstleistungen und Einsätze.',
       },
-      { type: 'p', text: 'Dazu können beispielsweise gehören:' },
+      {
+        type: 'p',
+        text: 'Unser Tätigkeitsgebiet endet jedoch nicht an den Grenzen Nordhessens. Für Veranstaltungen, Sicherheitsaufträge und projektbezogene Einsätze stehen wir unseren Auftraggebern grundsätzlich **bundesweit sowie – unter Berücksichtigung der jeweils geltenden rechtlichen Voraussetzungen – auch für Projekte in Österreich und der Schweiz** zur Verfügung.',
+      },
+      { type: 'tagline', text: 'Hauptstandort Kassel – flexibel im Einsatz.' },
+    ],
+  },
+  {
+    id: 'philosophie',
+    title: 'Unsere Philosophie',
+    subtitle: 'Faire Arbeit. Professionelle Sicherheit.',
+    blocks: [
+      { type: 'p', text: 'Wir möchten Sicherheitsdienstleistungen nicht über möglichst billiges Personal definieren.' },
+      {
+        type: 'p',
+        text: 'Professionelle Sicherheitsarbeit entsteht durch **qualifizierte Mitarbeiter, faire Arbeitsbedingungen, regelmäßige Weiterbildung, gute Vorbereitung, moderne Technik und klare Sicherheitskonzepte**.',
+      },
+      {
+        type: 'p',
+        text: 'Unser Ziel ist ein Unternehmen, in dem Mitarbeiter ihre Tätigkeit professionell ausüben und sich gleichzeitig langfristig weiterentwickeln können.',
+      },
+      {
+        type: 'tagline',
+        text: 'Nicht nur reagieren, wenn etwas passiert – Risiken erkennen, bevor daraus ein Problem entsteht.',
+      },
+    ],
+  },
+  {
+    id: 'konzept',
+    title: 'Unser Sicherheitskonzept',
+    subtitle: 'Vorbereitung beginnt vor dem ersten Einsatz',
+    blocks: [
+      { type: 'p', text: 'Unser Anspruch beginnt nicht erst dann, wenn ein Sicherheitsmitarbeiter am Objekt steht.' },
+      {
+        type: 'p',
+        text: 'Vor einem neuen Auftrag möchten wir uns bereits **vor dem ersten Kundengespräch** möglichst umfassend über folgende Punkte informieren:',
+      },
       {
         type: 'list',
         items: [
-          'Überwachungskameras',
-          'IP- und Netzwerkkameras',
-          'Videoüberwachungssysteme',
-          'Aufzeichnungsgeräte',
-          'Monitoring-Systeme',
-          'Bewegungs- und Öffnungssensoren',
-          'Alarm- und Meldetechnik',
-          'Zutrittslösungen',
-          'Video-Türklingeln',
-          'Zubehör für Kamera- und Sicherheitssysteme',
+          'Objekt und Gebäude',
+          'Nutzung des Objekts',
+          'Umgebung und Standort',
+          'öffentlich zugängliche Bereiche',
+          'Besucher- und Kundenaufkommen',
+          'erkennbare Risikofaktoren',
+          'besondere Anforderungen des Auftraggebers',
         ],
       },
-      { type: 'p', text: 'Dabei soll nicht der reine Produktverkauf im Vordergrund stehen.' },
-      { type: 'p', text: 'Entscheidend ist die Frage: **Welche Technik ist für den jeweiligen Einsatzort tatsächlich sinnvoll?**' },
       {
         type: 'p',
-        text: 'Auf Wunsch können technische Sicherheitsmaßnahmen mit personeller Bewachung zu einem gemeinsamen Sicherheitskonzept verbunden werden.',
+        text: 'Dadurch können wir im Erstgespräch bereits konkrete Fragen stellen und gemeinsam mit dem Auftraggeber ein Sicherheitskonzept entwickeln, das zum tatsächlichen Bedarf passt.',
+      },
+      { type: 'tagline', text: 'Wir möchten nicht einfach Personal bereitstellen – wir möchten Sicherheit planen.' },
+    ],
+  },
+  {
+    id: 'mitarbeiter',
+    title: 'Unsere Mitarbeiter',
+    subtitle: 'Sicherheit beginnt beim Menschen',
+    blocks: [
+      {
+        type: 'p',
+        text: 'Technik kann unterstützen – entscheidend bleibt der Mensch dahinter. Deshalb legen wir Wert auf:',
+      },
+      {
+        type: 'list',
+        items: [
+          'Zuverlässigkeit',
+          'Aufmerksamkeit',
+          'Kommunikationsfähigkeit',
+          'professionelles Auftreten',
+          'Deeskalationsfähigkeit',
+          'Verantwortungsbewusstsein',
+          'kontinuierliche Weiterbildung',
+        ],
+      },
+      {
+        type: 'p',
+        text: 'Unsere Mitarbeiter sollen lernen, Situationen nicht nur zu beobachten, sondern **richtig einzuschätzen und angemessen darauf zu reagieren**.',
+      },
+      {
+        type: 'p',
+        text: 'Dazu gehören Schulungen zu Deeskalation, Diebstahlsprävention, Objekt- und Veranstaltungssicherheit sowie die Sensibilisierung für besondere Gefahren- und Bedrohungslagen.',
+      },
+      {
+        type: 'p',
+        text: 'Weiterqualifizierungen – beispielsweise von der **Sachkunde nach § 34a GewO** über weiterführende Qualifikationen bis hin zur **Fachkraft für Schutz und Sicherheit** – möchten wir aktiv unterstützen.',
+      },
+    ],
+  },
+  {
+    id: 'inklusion',
+    title: 'Inklusion & Chancengleichheit',
+    subtitle: 'Sicherheit braucht unterschiedliche Fähigkeiten',
+    blocks: [
+      {
+        type: 'p',
+        text: 'Bei MWS möchten wir Menschen nach ihren **Fähigkeiten, ihrer Zuverlässigkeit und ihrer Eignung** beurteilen – nicht danach, ob sie einem bestimmten klassischen Bild einer Sicherheitskraft entsprechen.',
+      },
+      { type: 'tagline', text: 'Frauen sind bei uns ausdrücklich willkommen.' },
+      {
+        type: 'p',
+        text: 'Ebenso möchten wir Menschen mit Behinderung berufliche Möglichkeiten im Sicherheitsbereich eröffnen, wenn die jeweilige Tätigkeit zu ihren individuellen Fähigkeiten und den Anforderungen des Arbeitsplatzes passt.',
+      },
+      { type: 'p', text: 'Nicht jede Tätigkeit im Sicherheitsdienst erfordert hohe körperliche Belastbarkeit.' },
+      { type: 'p', text: 'Aufgaben wie beispielsweise:' },
+      {
+        type: 'list',
+        items: [
+          'Videoüberwachung',
+          'Monitoring',
+          'Alarmannahme',
+          'Dokumentation',
+          'Überwachung technischer Systeme',
+          'bestimmte Leitstellenaufgaben',
+        ],
+      },
+      { type: 'p', text: 'können je nach Arbeitsplatz auch für Menschen mit körperlichen Einschränkungen geeignet sein.' },
+      {
+        type: 'p',
+        text: 'Ein Rollstuhlfahrer kann beispielsweise bei geeigneter Arbeitsplatzgestaltung hervorragende Arbeit bei der Beobachtung von Kamerasystemen, der Bewertung eingehender Meldungen, der Dokumentation und der Weiterleitung wichtiger Informationen leisten.',
+      },
+      {
+        type: 'tagline',
+        text: 'Für uns zählt nicht, was ein Mensch nicht kann, sondern welche Aufgabe er zuverlässig und professionell übernehmen kann.',
       },
     ],
   },
   {
     id: 'praevention',
-    kicker: '04',
     title: 'Prävention & besondere Gefahrenlagen',
     subtitle: 'Vorbereitung auf außergewöhnliche Situationen',
-    tone: 'light',
     blocks: [
       {
         type: 'p',
@@ -287,150 +388,37 @@ export const SECTIONS: Section[] = [
     ],
   },
   {
-    id: 'mitarbeiter',
-    title: 'Unsere Mitarbeiter',
-    subtitle: 'Sicherheit beginnt beim Menschen',
-    tone: 'alt',
+    id: 'technik',
+    title: 'Sicherheitstechnik & Verkauf',
+    subtitle: 'Kameras, Überwachungssysteme & Sicherheitsprodukte',
     blocks: [
+      { type: 'p', text: 'Moderne Sicherheit besteht aus dem Zusammenspiel von **Menschen, Technik und durchdachten Abläufen**.' },
       {
         type: 'p',
-        text: 'Technik kann unterstützen – entscheidend bleibt der Mensch dahinter. Deshalb legen wir Wert auf:',
+        text: 'Neben klassischen Sicherheitsdienstleistungen soll MWS deshalb auch Sicherheitstechnik und ausgewählte Sicherheitsprodukte anbieten bzw. vermitteln.',
       },
+      { type: 'p', text: 'Dazu können beispielsweise gehören:' },
       {
         type: 'list',
         items: [
-          'Zuverlässigkeit',
-          'Aufmerksamkeit',
-          'Kommunikationsfähigkeit',
-          'professionelles Auftreten',
-          'Deeskalationsfähigkeit',
-          'Verantwortungsbewusstsein',
-          'kontinuierliche Weiterbildung',
+          'Überwachungskameras',
+          'IP- und Netzwerkkameras',
+          'Videoüberwachungssysteme',
+          'Aufzeichnungsgeräte',
+          'Monitoring-Systeme',
+          'Bewegungs- und Öffnungssensoren',
+          'Alarm- und Meldetechnik',
+          'Zutrittslösungen',
+          'Video-Türklingeln',
+          'Zubehör für Kamera- und Sicherheitssysteme',
         ],
       },
+      { type: 'p', text: 'Dabei soll nicht der reine Produktverkauf im Vordergrund stehen.' },
+      { type: 'p', text: 'Entscheidend ist die Frage: **Welche Technik ist für den jeweiligen Einsatzort tatsächlich sinnvoll?**' },
       {
         type: 'p',
-        text: 'Unsere Mitarbeiter sollen lernen, Situationen nicht nur zu beobachten, sondern **richtig einzuschätzen und angemessen darauf zu reagieren**.',
+        text: 'Auf Wunsch können technische Sicherheitsmaßnahmen mit personeller Bewachung zu einem gemeinsamen Sicherheitskonzept verbunden werden.',
       },
-      {
-        type: 'p',
-        text: 'Dazu gehören Schulungen zu Deeskalation, Diebstahlsprävention, Objekt- und Veranstaltungssicherheit sowie die Sensibilisierung für besondere Gefahren- und Bedrohungslagen.',
-      },
-      {
-        type: 'p',
-        text: 'Weiterqualifizierungen – beispielsweise von der **Sachkunde nach § 34a GewO** über weiterführende Qualifikationen bis hin zur **Fachkraft für Schutz und Sicherheit** – möchten wir aktiv unterstützen.',
-      },
-    ],
-  },
-  {
-    id: 'inklusion',
-    kicker: '06',
-    title: 'Inklusion & Chancengleichheit',
-    subtitle: 'Sicherheit braucht unterschiedliche Fähigkeiten',
-    tone: 'light',
-    blocks: [
-      {
-        type: 'p',
-        text: 'Bei MWS möchten wir Menschen nach ihren **Fähigkeiten, ihrer Zuverlässigkeit und ihrer Eignung** beurteilen – nicht danach, ob sie einem bestimmten klassischen Bild einer Sicherheitskraft entsprechen.',
-      },
-      { type: 'tagline', text: 'Frauen sind bei uns ausdrücklich willkommen.' },
-      {
-        type: 'p',
-        text: 'Ebenso möchten wir Menschen mit Behinderung berufliche Möglichkeiten im Sicherheitsbereich eröffnen, wenn die jeweilige Tätigkeit zu ihren individuellen Fähigkeiten und den Anforderungen des Arbeitsplatzes passt.',
-      },
-      { type: 'p', text: 'Nicht jede Tätigkeit im Sicherheitsdienst erfordert hohe körperliche Belastbarkeit.' },
-      { type: 'p', text: 'Aufgaben wie beispielsweise:' },
-      {
-        type: 'list',
-        items: [
-          'Videoüberwachung',
-          'Monitoring',
-          'Alarmannahme',
-          'Dokumentation',
-          'Überwachung technischer Systeme',
-          'bestimmte Leitstellenaufgaben',
-        ],
-      },
-      { type: 'p', text: 'können je nach Arbeitsplatz auch für Menschen mit körperlichen Einschränkungen geeignet sein.' },
-      {
-        type: 'p',
-        text: 'Ein Rollstuhlfahrer kann beispielsweise bei geeigneter Arbeitsplatzgestaltung hervorragende Arbeit bei der Beobachtung von Kamerasystemen, der Bewertung eingehender Meldungen, der Dokumentation und der Weiterleitung wichtiger Informationen leisten.',
-      },
-      {
-        type: 'tagline',
-        text: 'Für uns zählt nicht, was ein Mensch nicht kann, sondern welche Aufgabe er zuverlässig und professionell übernehmen kann.',
-      },
-    ],
-  },
-  {
-    id: 'konzept',
-    kicker: '07',
-    title: 'Unser Sicherheitskonzept',
-    subtitle: 'Vorbereitung beginnt vor dem ersten Einsatz',
-    tone: 'alt',
-    blocks: [
-      { type: 'p', text: 'Unser Anspruch beginnt nicht erst dann, wenn ein Sicherheitsmitarbeiter am Objekt steht.' },
-      {
-        type: 'p',
-        text: 'Vor einem neuen Auftrag möchten wir uns bereits **vor dem ersten Kundengespräch** möglichst umfassend über folgende Punkte informieren:',
-      },
-      {
-        type: 'list',
-        items: [
-          'Objekt und Gebäude',
-          'Nutzung des Objekts',
-          'Umgebung und Standort',
-          'öffentlich zugängliche Bereiche',
-          'Besucher- und Kundenaufkommen',
-          'erkennbare Risikofaktoren',
-          'besondere Anforderungen des Auftraggebers',
-        ],
-      },
-      {
-        type: 'p',
-        text: 'Dadurch können wir im Erstgespräch bereits konkrete Fragen stellen und gemeinsam mit dem Auftraggeber ein Sicherheitskonzept entwickeln, das zum tatsächlichen Bedarf passt.',
-      },
-      { type: 'tagline', text: 'Wir möchten nicht einfach Personal bereitstellen – wir möchten Sicherheit planen.' },
-    ],
-  },
-  {
-    id: 'philosophie',
-    kicker: '08',
-    title: 'Unsere Philosophie',
-    subtitle: 'Faire Arbeit. Professionelle Sicherheit.',
-    tone: 'light',
-    blocks: [
-      { type: 'p', text: 'Wir möchten Sicherheitsdienstleistungen nicht über möglichst billiges Personal definieren.' },
-      {
-        type: 'p',
-        text: 'Professionelle Sicherheitsarbeit entsteht durch **qualifizierte Mitarbeiter, faire Arbeitsbedingungen, regelmäßige Weiterbildung, gute Vorbereitung, moderne Technik und klare Sicherheitskonzepte**.',
-      },
-      {
-        type: 'p',
-        text: 'Unser Ziel ist ein Unternehmen, in dem Mitarbeiter ihre Tätigkeit professionell ausüben und sich gleichzeitig langfristig weiterentwickeln können.',
-      },
-      {
-        type: 'tagline',
-        text: 'Nicht nur reagieren, wenn etwas passiert – Risiken erkennen, bevor daraus ein Problem entsteht.',
-      },
-    ],
-  },
-  {
-    id: 'einsatzgebiet',
-    kicker: '09',
-    title: 'Einsatzgebiet',
-    tone: 'dark',
-    blocks: [
-      { type: 'p', text: 'Unsere Hauptniederlassung befindet sich in **Kassel**.' },
-      {
-        type: 'p',
-        text: 'Von unserem Standort in der **Leipziger Straße 242, 34123 Kassel** koordinieren wir unsere Sicherheitsdienstleistungen und Einsätze.',
-      },
-      {
-        type: 'p',
-        text: 'Unser Tätigkeitsgebiet endet jedoch nicht an den Grenzen Nordhessens. Für Veranstaltungen, Sicherheitsaufträge und projektbezogene Einsätze stehen wir unseren Auftraggebern grundsätzlich **bundesweit sowie – unter Berücksichtigung der jeweils geltenden rechtlichen Voraussetzungen – auch für Projekte in Österreich und der Schweiz** zur Verfügung.',
-      },
-      { type: 'tagline', text: 'Hauptstandort Kassel – flexibel im Einsatz.' },
     ],
   },
 ]

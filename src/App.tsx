@@ -8,7 +8,13 @@ import {
 } from "react";
 import "./App.css";
 import logo from "./assets/mws-logo.jpeg";
-import { SECTIONS, SERVICES, type Block, type Service } from "./content";
+import {
+  SECTIONS,
+  SERVICES,
+  type Block,
+  type Section,
+  type Service,
+} from "./content";
 
 // TODO: Replace every placeholder value below with the real company details
 // before this site goes live (legally required for the Impressum / §5 TMG).
@@ -30,19 +36,12 @@ const COMPANY = {
 };
 
 const NAV_LINKS = [
-  { href: "#leistungen", label: "Leistungen" },
-  { href: "#technik", label: "Technik" },
-  { href: "#mitarbeiter", label: "Mitarbeiter" },
   { href: "#einsatzgebiet", label: "Einsatzgebiet" },
+  { href: "#leistungen", label: "Leistungen" },
+  { href: "#mitarbeiter", label: "Mitarbeiter" },
+  { href: "#technik", label: "Technik" },
   { href: "#kontakt", label: "Kontakt" },
   { href: "#impressum", label: "Impressum" },
-];
-
-const TRUST_POINTS = [
-  "Zertifiziert nach §34a GewO",
-  "Geschultes & zuverlässiges Personal",
-  "24/7 erreichbar",
-  "Individuelle Sicherheitskonzepte",
 ];
 
 const LEISTUNGEN_LIST = [
@@ -56,6 +55,31 @@ const LEISTUNGEN_LIST = [
   "Videoüberwachung",
   "Sicherheitstechnik",
 ];
+
+// Background of the whole main-content flow (einsatzgebiet → leistungen →
+// philosophie → konzept → mitarbeiter → inklusion → praevention → technik →
+// kontakt), alternating strictly so neighbouring sections always differ.
+// Each section fades in from the colour of the section above it.
+const FLOW_BG = [
+  "var(--bg-alt)",
+  "var(--bg)",
+  "var(--bg-alt)",
+  "var(--bg)",
+  "var(--bg-alt)",
+  "var(--bg)",
+  "var(--bg-alt)",
+  "var(--bg)",
+  "var(--bg-alt)",
+];
+const HERO_BG = "var(--black-950)";
+const FOOTER_BG = "var(--black-950)";
+const FADE_HEIGHT = "16px";
+
+function fadeFrom(prevToken: string, index: number) {
+  return {
+    background: `linear-gradient(to bottom, ${prevToken}, ${FLOW_BG[index]} ${FADE_HEIGHT})`,
+  };
+}
 
 // Renders **bold** markers from the source texts as <strong>.
 function renderInline(text: string): ReactNode {
@@ -102,6 +126,28 @@ function ContentBlocks({ blocks }: { blocks: Block[] }) {
         );
       })}
     </>
+  );
+}
+
+function SectionBlock({
+  section,
+  index,
+  prevBg,
+}: {
+  section: Section;
+  index: number;
+  prevBg: string;
+}) {
+  return (
+    <section id={section.id} className="content-section" style={fadeFrom(prevBg, index)}>
+      <div className="container content-inner">
+        <h2>{section.title}</h2>
+        {section.subtitle && <p className="section-lead">{section.subtitle}</p>}
+        <div className="prose">
+          <ContentBlocks blocks={section.blocks} />
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -404,18 +450,12 @@ function App() {
                 Jetzt anrufen
               </a>
             </div>
-            <ul className="trust-strip">
-              {TRUST_POINTS.map((point) => (
-                <li key={point}>
-                  <CheckIcon />
-                  {point}
-                </li>
-              ))}
-            </ul>
           </div>
         </section>
 
-        <section id="leistungen" className="services">
+        <SectionBlock section={SECTIONS[0]} index={0} prevBg={HERO_BG} />
+
+        <section id="leistungen" className="services" style={fadeFrom(FLOW_BG[0], 1)}>
           <div className="container">
             <h2>Unsere Leistungen</h2>
             <p className="section-lead">
@@ -441,25 +481,16 @@ function App() {
           </div>
         </section>
 
-        {SECTIONS.map((section) => (
-          <section
+        {SECTIONS.slice(1).map((section, i) => (
+          <SectionBlock
             key={section.id}
-            id={section.id}
-            className={`content-section content-section--${section.tone}`}
-          >
-            <div className="container content-inner">
-              <h2>{section.title}</h2>
-              {section.subtitle && (
-                <p className="section-lead">{section.subtitle}</p>
-              )}
-              <div className="prose">
-                <ContentBlocks blocks={section.blocks} />
-              </div>
-            </div>
-          </section>
+            section={section}
+            index={i + 2}
+            prevBg={FLOW_BG[i + 1]}
+          />
         ))}
 
-        <section id="kontakt" className="contact">
+        <section id="kontakt" className="contact" style={fadeFrom(FLOW_BG[7], 8)}>
           <div className="container contact-inner">
             <div>
               <h2>Kontakt aufnehmen</h2>
@@ -491,7 +522,13 @@ function App() {
         </section>
       </main>
 
-      <footer id="impressum" className="site-footer">
+      <footer
+        id="impressum"
+        className="site-footer"
+        style={{
+          background: `linear-gradient(to bottom, ${FLOW_BG[8]}, ${FOOTER_BG} ${FADE_HEIGHT})`,
+        }}
+      >
         <div className="container footer-top">
           <p className="footer-brand">{COMPANY.name}</p>
           <p className="footer-motto">Mensch. Technik. Verantwortung.</p>
