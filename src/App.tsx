@@ -22,7 +22,6 @@ import {
 // before this site goes live (legally required for the Impressum / §5 TMG).
 const COMPANY = {
   name: "MWS Sicherheitskonzepte & Sicherheitsdienst",
-  shortName: "MWS",
   legalName: "MWS Sicherheitskonzepte & Sicherheitsdienst GmbH", // TODO: exact legal (registered) name incl. Rechtsform
   claim: "Sicherheit mit Verantwortung. Prävention mit Konzept.",
   phoneDisplay: "+49 561 43083015",
@@ -159,6 +158,108 @@ function SectionBlock({
   );
 }
 
+// Reveals an element once, the first time it scrolls into view.
+function useRevealOnScroll<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.2 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, visible };
+}
+
+function PhilosophieSection({
+  section,
+  index,
+  prevBg,
+}: {
+  section: Section;
+  index: number;
+  prevBg: string;
+}) {
+  const { ref, visible } = useRevealOnScroll<HTMLDivElement>();
+  const listBlock = section.blocks.find((b) => b.type === "list");
+  const taglineBlock = section.blocks.find((b) => b.type === "tagline");
+
+  return (
+    <section id={section.id} className="content-section" style={fadeFrom(prevBg, index)}>
+      <div className="container">
+        <div
+          ref={ref}
+          className={`philosophie-row reveal reveal--left${visible ? " reveal--visible" : ""}`}
+        >
+          <div className="philosophie-title">
+            <h2>{section.title}</h2>
+            {section.subtitle && <p className="section-lead">{section.subtitle}</p>}
+          </div>
+          <div className="philosophie-content">
+            {listBlock && listBlock.type === "list" && (
+              <ul className="block-list">
+                {listBlock.items.map((item) => (
+                  <li key={item}>
+                    <CheckIcon />
+                    <span>{renderInline(item)}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {taglineBlock && taglineBlock.type === "tagline" && (
+              <p className="block-tagline">{renderInline(taglineBlock.text)}</p>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function KonzeptSection({
+  section,
+  index,
+  prevBg,
+}: {
+  section: Section;
+  index: number;
+  prevBg: string;
+}) {
+  const { ref, visible } = useRevealOnScroll<HTMLDivElement>();
+
+  return (
+    <section id={section.id} className="content-section" style={fadeFrom(prevBg, index)}>
+      <div className="container">
+        <div
+          ref={ref}
+          className={`konzept-row reveal reveal--right${visible ? " reveal--visible" : ""}`}
+        >
+          <div className="konzept-title">
+            <h2>{section.title}</h2>
+            {section.subtitle && <p className="section-lead">{section.subtitle}</p>}
+          </div>
+          <div className="konzept-content">
+            <div className="prose">
+              <ContentBlocks blocks={section.blocks} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 const EINSATZGEBIET_IMAGES = [
   { src: cassel, alt: "Kassel, Hauptstandort von MWS" },
   { src: vienna, alt: "Wien" },
@@ -174,6 +275,8 @@ function EinsatzgebietSection({
   prevBg: string;
 }) {
   const [activeImage, setActiveImage] = useState(0);
+  const { ref: textRef, visible: textVisible } = useRevealOnScroll<HTMLDivElement>();
+  const { ref: collageRef, visible: collageVisible } = useRevealOnScroll<HTMLDivElement>();
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -201,14 +304,20 @@ function EinsatzgebietSection({
         <div className="einsatzgebiet-bg-overlay" />
       </div>
       <div className="container einsatzgebiet-row">
-        <div className="content-inner">
+        <div
+          ref={textRef}
+          className={`content-inner reveal reveal--back${textVisible ? " reveal--visible" : ""}`}
+        >
           <h2>{section.title}</h2>
           {section.subtitle && <p className="section-lead">{section.subtitle}</p>}
           <div className="prose">
             <ContentBlocks blocks={section.blocks} />
           </div>
         </div>
-        <div className="einsatzgebiet-collage">
+        <div
+          ref={collageRef}
+          className={`einsatzgebiet-collage reveal reveal--right${collageVisible ? " reveal--visible" : ""}`}
+        >
           <img
             src={cassel}
             alt="Kassel, Hauptstandort von MWS"
@@ -448,16 +557,17 @@ function ContactForm() {
 function App() {
   const [openServiceId, setOpenServiceId] = useState<string | null>(null);
   const openService = SERVICES.find((s) => s.id === openServiceId) ?? null;
+  const { ref: leistungenRef, visible: leistungenVisible } =
+    useRevealOnScroll<HTMLDivElement>();
 
   return (
     <>
       <input type="checkbox" id="nav-toggle" className="nav-toggle-input" />
 
       <header className="site-header">
-        <div className="container header-row">
+        <div className="header-row">
           <a href="#home" className="brand">
-            <img src={logo} alt={COMPANY.name} className="brand-logo" />
-            {COMPANY.shortName}
+            {COMPANY.name}
           </a>
 
           <label
@@ -533,7 +643,10 @@ function App() {
         <EinsatzgebietSection section={SECTIONS[0]} index={0} prevBg={HERO_BG} />
 
         <section id="leistungen" className="services" style={fadeFrom(FLOW_BG[0], 1)}>
-          <div className="container">
+          <div
+            ref={leistungenRef}
+            className={`container reveal reveal--back${leistungenVisible ? " reveal--visible" : ""}`}
+          >
             <h2>Unsere Leistungen</h2>
             <p className="section-lead">
               Maßgeschneiderte Sicherheitslösungen für Unternehmen,
@@ -558,15 +671,31 @@ function App() {
           </div>
         </section>
 
-        {SECTIONS.slice(1).map((section, i) => (
-          <SectionBlock
-            key={section.id}
-            section={section}
-            index={i + 2}
-            prevBg={FLOW_BG[i + 1]}
-            align={(i + 1) % 2 === 0 ? "left" : "right"}
-          />
-        ))}
+        {SECTIONS.slice(1).map((section, i) =>
+          section.id === "philosophie" ? (
+            <PhilosophieSection
+              key={section.id}
+              section={section}
+              index={i + 2}
+              prevBg={FLOW_BG[i + 1]}
+            />
+          ) : section.id === "konzept" ? (
+            <KonzeptSection
+              key={section.id}
+              section={section}
+              index={i + 2}
+              prevBg={FLOW_BG[i + 1]}
+            />
+          ) : (
+            <SectionBlock
+              key={section.id}
+              section={section}
+              index={i + 2}
+              prevBg={FLOW_BG[i + 1]}
+              align={(i + 1) % 2 === 0 ? "left" : "right"}
+            />
+          ),
+        )}
 
         <section id="kontakt" className="contact" style={fadeFrom(FLOW_BG[7], 8)}>
           <div className="container contact-inner">

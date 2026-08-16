@@ -17,6 +17,7 @@ html {
   align-items: center;
   justify-content: space-between;
   height: 72px;
+  padding: 0 24px;
 }
 
 .brand {
@@ -25,7 +26,8 @@ html {
   gap: 10px;
   color: #fff;
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: 1rem;
+  line-height: 1.2;
   text-decoration: none;
 }
 
@@ -33,13 +35,6 @@ html {
   width: 24px;
   height: 24px;
   color: var(--red);
-}
-
-.brand-logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
 }
 
 .site-nav {
@@ -72,6 +67,11 @@ html {
 /* ---------- hero ---------- */
 
 .hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
   background: linear-gradient(160deg, var(--black-900), var(--black-950) 65%);
   color: #fff;
   padding: 96px 0 72px;
@@ -264,6 +264,80 @@ html {
   font-weight: 700;
   font-size: 1.05rem;
   color: var(--ink);
+}
+
+/* ---------- philosophie ---------- */
+
+.philosophie-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 56px;
+}
+
+.philosophie-title {
+  flex: 0 0 320px;
+}
+
+.philosophie-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---------- konzept ---------- */
+
+.konzept-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 56px;
+}
+
+.konzept-title {
+  order: 2;
+  flex: 0 0 440px;
+}
+
+.konzept-title h2 {
+  white-space: nowrap;
+}
+
+.konzept-content {
+  order: 1;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---------- scroll reveal ---------- */
+
+.reveal {
+  opacity: 0;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.reveal--left {
+  transform: translateX(-48px);
+}
+
+.reveal--right {
+  transform: translateX(48px);
+}
+
+.reveal--back {
+  transform: scale(0.88);
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* ---------- einsatzgebiet ---------- */
@@ -598,6 +672,33 @@ html {
     flex-direction: column;
     align-items: flex-start;
     gap: 32px;
+  }
+
+  .philosophie-row {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .philosophie-title {
+    flex-basis: auto;
+  }
+
+  .konzept-row {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .konzept-title,
+  .konzept-content {
+    order: 0;
+  }
+
+  .konzept-title {
+    flex-basis: auto;
+  }
+
+  .konzept-title h2 {
+    white-space: normal;
   }
 
   .hero-logo {

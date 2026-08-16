@@ -249,16 +249,17 @@ export const SECTIONS: Section[] = [
     subtitle: "Faire Arbeit. Professionelle Sicherheit.",
     blocks: [
       {
-        type: "p",
-        text: "Wir möchten Sicherheitsdienstleistungen nicht über möglichst billiges Personal definieren.",
-      },
-      {
-        type: "p",
-        text: "Professionelle Sicherheitsarbeit entsteht durch **qualifizierte Mitarbeiter, faire Arbeitsbedingungen, regelmäßige Weiterbildung, gute Vorbereitung, moderne Technik und klare Sicherheitskonzepte**.",
-      },
-      {
-        type: "p",
-        text: "Unser Ziel ist ein Unternehmen, in dem Mitarbeiter ihre Tätigkeit professionell ausüben und sich gleichzeitig langfristig weiterentwickeln können.",
+        type: "list",
+        items: [
+          "Sicherheit entsteht nicht über möglichst billiges Personal",
+          "Qualifizierte Mitarbeiter",
+          "Faire Arbeitsbedingungen",
+          "Regelmäßige Weiterbildung",
+          "Gute Vorbereitung",
+          "Moderne Technik",
+          "Klare Sicherheitskonzepte",
+          "Ein Unternehmen, in dem sich Mitarbeiter langfristig weiterentwickeln können",
+        ],
       },
       {
         type: "tagline",
