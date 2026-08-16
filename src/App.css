@@ -306,6 +306,33 @@ html {
   min-width: 0;
 }
 
+/* ---------- mitarbeiter ---------- */
+
+.mitarbeiter-row {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+}
+
+.mitarbeiter-image {
+  flex-shrink: 0;
+  width: 360px;
+}
+
+.mitarbeiter-image img {
+  display: block;
+  width: 100%;
+  height: 460px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+.mitarbeiter-row .content-inner {
+  flex: 1;
+  min-width: 0;
+}
+
 /* ---------- scroll reveal ---------- */
 
 .reveal {
@@ -324,7 +351,7 @@ html {
 }
 
 .reveal--back {
-  transform: scale(0.88);
+  transform: scale(0.82) translateY(28px);
 }
 
 .reveal--visible {
@@ -699,6 +726,17 @@ html {
 
   .konzept-title h2 {
     white-space: normal;
+  }
+
+  .mitarbeiter-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .mitarbeiter-image {
+    width: 100%;
+    max-width: 360px;
   }
 
   .hero-logo {

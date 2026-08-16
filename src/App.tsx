@@ -10,6 +10,7 @@ import "./App.css";
 import logo from "./assets/mws-logo.jpeg";
 import cassel from "./assets/cassel.jpg";
 import vienna from "./assets/vienna.jpg";
+import worker from "./assets/worker.jpg";
 import {
   SECTIONS,
   SERVICES,
@@ -40,7 +41,6 @@ const NAV_LINKS = [
   { href: "#einsatzgebiet", label: "Einsatzgebiet" },
   { href: "#leistungen", label: "Leistungen" },
   { href: "#mitarbeiter", label: "Mitarbeiter" },
-  { href: "#technik", label: "Technik" },
   { href: "#kontakt", label: "Kontakt" },
   { href: "#impressum", label: "Impressum" },
 ];
@@ -53,14 +53,15 @@ const LEISTUNGEN_LIST = [
   "Zugbegleitung",
   "Flüchtlings- & Gemeinschaftsunterkünfte",
   "Senioren- & Pflegeeinrichtungen",
+  "Prävention",
   "Videoüberwachung",
   "Sicherheitstechnik",
 ];
 
 // Background of the whole main-content flow (einsatzgebiet → leistungen →
-// philosophie → konzept → mitarbeiter → inklusion → praevention → technik →
-// kontakt), alternating strictly so neighbouring sections always differ.
-// Each section fades in from the colour of the section above it.
+// philosophie → konzept → mitarbeiter → kontakt), alternating strictly so
+// neighbouring sections always differ. Each section fades in from the
+// colour of the section above it.
 const FLOW_BG = [
   "var(--bg-alt)",
   "var(--bg)",
@@ -68,9 +69,6 @@ const FLOW_BG = [
   "var(--bg)",
   "var(--bg-alt)",
   "var(--bg)",
-  "var(--bg-alt)",
-  "var(--bg)",
-  "var(--bg-alt)",
 ];
 const HERO_BG = "var(--black-950)";
 const FOOTER_BG = "var(--black-950)";
@@ -141,11 +139,14 @@ function SectionBlock({
   prevBg: string;
   align: "left" | "right";
 }) {
+  const { ref, visible } = useRevealOnScroll<HTMLDivElement>();
+
   return (
     <section id={section.id} className="content-section" style={fadeFrom(prevBg, index)}>
       <div className="container">
         <div
-          className={`content-inner${align === "right" ? " content-inner--right" : ""}`}
+          ref={ref}
+          className={`content-inner reveal reveal--back${visible ? " reveal--visible" : ""}${align === "right" ? " content-inner--right" : ""}`}
         >
           <h2>{section.title}</h2>
           {section.subtitle && <p className="section-lead">{section.subtitle}</p>}
@@ -173,7 +174,7 @@ function useRevealOnScroll<T extends HTMLElement>() {
           observer.unobserve(el);
         }
       },
-      { threshold: 0.2 },
+      { threshold: 0.1 },
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -253,6 +254,42 @@ function KonzeptSection({
             <div className="prose">
               <ContentBlocks blocks={section.blocks} />
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MitarbeiterSection({
+  section,
+  index,
+  prevBg,
+}: {
+  section: Section;
+  index: number;
+  prevBg: string;
+}) {
+  const { ref: imageRef, visible: imageVisible } = useRevealOnScroll<HTMLDivElement>();
+  const { ref: textRef, visible: textVisible } = useRevealOnScroll<HTMLDivElement>();
+
+  return (
+    <section id={section.id} className="content-section" style={fadeFrom(prevBg, index)}>
+      <div className="container mitarbeiter-row">
+        <div
+          ref={imageRef}
+          className={`mitarbeiter-image reveal reveal--left${imageVisible ? " reveal--visible" : ""}`}
+        >
+          <img src={worker} alt="MWS Sicherheitsmitarbeiter im Einsatz" />
+        </div>
+        <div
+          ref={textRef}
+          className={`content-inner reveal reveal--right${textVisible ? " reveal--visible" : ""}`}
+        >
+          <h2>{section.title}</h2>
+          {section.subtitle && <p className="section-lead">{section.subtitle}</p>}
+          <div className="prose">
+            <ContentBlocks blocks={section.blocks} />
           </div>
         </div>
       </div>
@@ -559,6 +596,8 @@ function App() {
   const openService = SERVICES.find((s) => s.id === openServiceId) ?? null;
   const { ref: leistungenRef, visible: leistungenVisible } =
     useRevealOnScroll<HTMLDivElement>();
+  const { ref: kontaktRef, visible: kontaktVisible } =
+    useRevealOnScroll<HTMLDivElement>();
 
   return (
     <>
@@ -686,6 +725,13 @@ function App() {
               index={i + 2}
               prevBg={FLOW_BG[i + 1]}
             />
+          ) : section.id === "mitarbeiter" ? (
+            <MitarbeiterSection
+              key={section.id}
+              section={section}
+              index={i + 2}
+              prevBg={FLOW_BG[i + 1]}
+            />
           ) : (
             <SectionBlock
               key={section.id}
@@ -697,8 +743,11 @@ function App() {
           ),
         )}
 
-        <section id="kontakt" className="contact" style={fadeFrom(FLOW_BG[7], 8)}>
-          <div className="container contact-inner">
+        <section id="kontakt" className="contact" style={fadeFrom(FLOW_BG[4], 5)}>
+          <div
+            ref={kontaktRef}
+            className={`container contact-inner reveal reveal--back${kontaktVisible ? " reveal--visible" : ""}`}
+          >
             <div>
               <h2>Kontakt aufnehmen</h2>
               <p className="section-lead">
@@ -733,7 +782,7 @@ function App() {
         id="impressum"
         className="site-footer"
         style={{
-          background: `linear-gradient(to bottom, ${FLOW_BG[8]}, ${FOOTER_BG} ${FADE_HEIGHT})`,
+          background: `linear-gradient(to bottom, ${FLOW_BG[5]}, ${FOOTER_BG} ${FADE_HEIGHT})`,
         }}
       >
         <div className="container footer-top">

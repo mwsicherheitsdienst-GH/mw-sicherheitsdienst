@@ -211,6 +211,103 @@ export const SERVICES: Service[] = [
       },
     ],
   },
+  {
+    id: "praevention",
+    title: "Prävention & besondere Gefahrenlagen",
+    summary:
+      "Sensibilisierung und Schulung für besondere Gefahren- und Bedrohungslagen – frühzeitig erkennen, richtig reagieren.",
+    blocks: [
+      {
+        type: "p",
+        text: "Unsere Sicherheitsmitarbeiter können und dürfen **die Arbeit von Polizei, Bundespolizei, Feuerwehr oder Rettungsdiensten nicht ersetzen** und übernehmen keine hoheitlichen Aufgaben.",
+      },
+      {
+        type: "p",
+        text: "Private Sicherheitskräfte befinden sich jedoch häufig bereits vor Ort, wenn eine Gefahr entsteht.",
+      },
+      {
+        type: "p",
+        text: "Deshalb sollen unsere Mitarbeiter neben alltäglichen Konfliktsituationen auch für **besondere Gefahren- und Bedrohungslagen** sensibilisiert und regelmäßig geschult werden.",
+      },
+      { type: "p", text: "Dazu gehören beispielsweise:" },
+      {
+        type: "list",
+        items: [
+          "schwere Gewalttaten",
+          "verdächtige Gegenstände",
+          "auffällige oder bedrohliche Verhaltensweisen",
+          "akute Gefahrensituationen",
+          "mögliche Anschlagslagen",
+          "terroristische Bedrohungsszenarien",
+        ],
+      },
+      {
+        type: "p",
+        text: "Auch Szenarien wie **Terroranschläge oder vergleichbare schwere Bedrohungslagen** in Einkaufszentren, Veranstaltungen, Bahnhöfen, Zügen, Flüchtlingsunterkünften und anderen öffentlich zugänglichen Einrichtungen werden im Rahmen der Schulungen thematisiert.",
+      },
+      {
+        type: "p",
+        text: "Dabei geht es ausdrücklich **nicht darum, polizeiliche Einsatzkräfte zu ersetzen oder sich unnötig selbst in Gefahr zu bringen**.",
+      },
+      { type: "p", text: "Im Vordergrund stehen:" },
+      {
+        type: "tagline",
+        text: "Gefahren erkennen – unverzüglich melden – Menschen warnen – vorhandene Notfallkonzepte umsetzen – Informationen weitergeben – Polizei und Rettungskräfte unterstützen.",
+      },
+      {
+        type: "p",
+        text: "Soweit es die Situation, die rechtlichen Befugnisse und der Eigenschutz zulassen, sollen unsere Mitarbeiter in einer akuten Gefahrenlage **schnell, besonnen und verantwortungsvoll handeln**.",
+      },
+      {
+        type: "tagline",
+        text: "Erkennen. Melden. Deeskalieren. Schützen. Unterstützen.",
+      },
+    ],
+  },
+  {
+    id: "technik",
+    title: "Sicherheitstechnik & Verkauf",
+    summary:
+      "Kameras, Alarmtechnik und Zutrittslösungen – abgestimmt auf Ihr individuelles Sicherheitskonzept.",
+    blocks: [
+      {
+        type: "p",
+        text: "Moderne Sicherheit besteht aus dem Zusammenspiel von **Menschen, Technik und durchdachten Abläufen**.",
+      },
+      {
+        type: "p",
+        text: "Neben klassischen Sicherheitsdienstleistungen bietet MWS deshalb auch Sicherheitstechnik und ausgewählte Sicherheitsprodukte an.",
+      },
+      { type: "p", text: "Dazu gehört beispielsweise:" },
+      {
+        type: "list",
+        items: [
+          "Überwachungskameras",
+          "IP- und Netzwerkkameras",
+          "Videoüberwachungssysteme",
+          "Aufzeichnungsgeräte",
+          "Monitoring-Systeme",
+          "Bewegungs- und Öffnungssensoren",
+          "Alarm- und Meldetechnik",
+          "Zutrittslösungen",
+          "Video-Türklingeln",
+          "Zubehör für Kamera- und Sicherheitssysteme",
+        ],
+      },
+      {
+        type: "p",
+        text: "Dabei soll nicht der reine Produktverkauf im Vordergrund stehen.",
+      },
+      {
+        type: "p",
+        text: "Entscheidend ist die Frage: **Welche Technik ist für den jeweiligen Einsatzort tatsächlich sinnvoll?**",
+      },
+      {
+        type: "p",
+        text: "Auf Wunsch können technische Sicherheitsmaßnahmen mit personeller Bewachung zu einem gemeinsamen Sicherheitskonzept verbunden werden.",
+      },
+    ],
+  },
 ];
 
 export type Section = {
@@ -321,6 +418,7 @@ export const SECTIONS: Section[] = [
           "Deeskalationsfähigkeit",
           "Verantwortungsbewusstsein",
           "kontinuierliche Weiterbildung",
+          "Inklusive Berufschancen",
         ],
       },
       {
@@ -334,145 +432,6 @@ export const SECTIONS: Section[] = [
       {
         type: "p",
         text: "Weiterqualifizierungen – beispielsweise von der **Sachkunde nach § 34a GewO** über weiterführende Qualifikationen bis hin zur **Fachkraft für Schutz und Sicherheit** – möchten wir aktiv unterstützen.",
-      },
-    ],
-  },
-  {
-    id: "inklusion",
-    title: "Inklusion & Chancengleichheit",
-    subtitle: "Sicherheit braucht unterschiedliche Fähigkeiten",
-    blocks: [
-      {
-        type: "p",
-        text: "Bei MWS möchten wir Menschen nach ihren **Fähigkeiten, ihrer Zuverlässigkeit und ihrer Eignung** beurteilen – nicht danach, ob sie einem bestimmten klassischen Bild einer Sicherheitskraft entsprechen.",
-      },
-      { type: "tagline", text: "Frauen sind bei uns ausdrücklich willkommen." },
-      {
-        type: "p",
-        text: "Ebenso möchten wir Menschen mit Behinderung berufliche Möglichkeiten im Sicherheitsbereich eröffnen, wenn die jeweilige Tätigkeit zu ihren individuellen Fähigkeiten und den Anforderungen des Arbeitsplatzes passt.",
-      },
-      {
-        type: "p",
-        text: "Nicht jede Tätigkeit im Sicherheitsdienst erfordert hohe körperliche Belastbarkeit.",
-      },
-      { type: "p", text: "Aufgaben wie beispielsweise:" },
-      {
-        type: "list",
-        items: [
-          "Videoüberwachung",
-          "Monitoring",
-          "Alarmannahme",
-          "Dokumentation",
-          "Überwachung technischer Systeme",
-          "bestimmte Leitstellenaufgaben",
-        ],
-      },
-      {
-        type: "p",
-        text: "können je nach Arbeitsplatz auch für Menschen mit körperlichen Einschränkungen geeignet sein.",
-      },
-      {
-        type: "p",
-        text: "Ein Rollstuhlfahrer kann beispielsweise bei geeigneter Arbeitsplatzgestaltung hervorragende Arbeit bei der Beobachtung von Kamerasystemen, der Bewertung eingehender Meldungen, der Dokumentation und der Weiterleitung wichtiger Informationen leisten.",
-      },
-      {
-        type: "tagline",
-        text: "Für uns zählt nicht, was ein Mensch nicht kann, sondern welche Aufgabe er zuverlässig und professionell übernehmen kann.",
-      },
-    ],
-  },
-  {
-    id: "praevention",
-    title: "Prävention & besondere Gefahrenlagen",
-    subtitle: "Vorbereitung auf außergewöhnliche Situationen",
-    blocks: [
-      {
-        type: "p",
-        text: "Unsere Sicherheitsmitarbeiter können und dürfen **die Arbeit von Polizei, Bundespolizei, Feuerwehr oder Rettungsdiensten nicht ersetzen** und übernehmen keine hoheitlichen Aufgaben.",
-      },
-      {
-        type: "p",
-        text: "Private Sicherheitskräfte befinden sich jedoch häufig bereits vor Ort, wenn eine Gefahr entsteht.",
-      },
-      {
-        type: "p",
-        text: "Deshalb sollen unsere Mitarbeiter neben alltäglichen Konfliktsituationen auch für **besondere Gefahren- und Bedrohungslagen** sensibilisiert und regelmäßig geschult werden.",
-      },
-      { type: "p", text: "Dazu gehören beispielsweise:" },
-      {
-        type: "list",
-        items: [
-          "schwere Gewalttaten",
-          "verdächtige Gegenstände",
-          "auffällige oder bedrohliche Verhaltensweisen",
-          "akute Gefahrensituationen",
-          "mögliche Anschlagslagen",
-          "terroristische Bedrohungsszenarien",
-        ],
-      },
-      {
-        type: "p",
-        text: "Auch Szenarien wie **Terroranschläge oder vergleichbare schwere Bedrohungslagen** in Einkaufszentren, Veranstaltungen, Bahnhöfen, Zügen, Flüchtlingsunterkünften und anderen öffentlich zugänglichen Einrichtungen werden im Rahmen der Schulungen thematisiert.",
-      },
-      {
-        type: "p",
-        text: "Dabei geht es ausdrücklich **nicht darum, polizeiliche Einsatzkräfte zu ersetzen oder sich unnötig selbst in Gefahr zu bringen**.",
-      },
-      { type: "p", text: "Im Vordergrund stehen:" },
-      {
-        type: "tagline",
-        text: "Gefahren erkennen – unverzüglich melden – Menschen warnen – vorhandene Notfallkonzepte umsetzen – Informationen weitergeben – Polizei und Rettungskräfte unterstützen.",
-      },
-      {
-        type: "p",
-        text: "Soweit es die Situation, die rechtlichen Befugnisse und der Eigenschutz zulassen, sollen unsere Mitarbeiter in einer akuten Gefahrenlage **schnell, besonnen und verantwortungsvoll handeln**.",
-      },
-      {
-        type: "tagline",
-        text: "Erkennen. Melden. Deeskalieren. Schützen. Unterstützen.",
-      },
-    ],
-  },
-  {
-    id: "technik",
-    title: "Sicherheitstechnik & Verkauf",
-    subtitle: "Kameras, Überwachungssysteme & Sicherheitsprodukte",
-    blocks: [
-      {
-        type: "p",
-        text: "Moderne Sicherheit besteht aus dem Zusammenspiel von **Menschen, Technik und durchdachten Abläufen**.",
-      },
-      {
-        type: "p",
-        text: "Neben klassischen Sicherheitsdienstleistungen bietet MWS deshalb auch Sicherheitstechnik und ausgewählte Sicherheitsprodukte an.",
-      },
-      { type: "p", text: "Dazu gehört beispielsweise:" },
-      {
-        type: "list",
-        items: [
-          "Überwachungskameras",
-          "IP- und Netzwerkkameras",
-          "Videoüberwachungssysteme",
-          "Aufzeichnungsgeräte",
-          "Monitoring-Systeme",
-          "Bewegungs- und Öffnungssensoren",
-          "Alarm- und Meldetechnik",
-          "Zutrittslösungen",
-          "Video-Türklingeln",
-          "Zubehör für Kamera- und Sicherheitssysteme",
-        ],
-      },
-      {
-        type: "p",
-        text: "Dabei soll nicht der reine Produktverkauf im Vordergrund stehen.",
-      },
-      {
-        type: "p",
-        text: "Entscheidend ist die Frage: **Welche Technik ist für den jeweiligen Einsatzort tatsächlich sinnvoll?**",
-      },
-      {
-        type: "p",
-        text: "Auf Wunsch können technische Sicherheitsmaßnahmen mit personeller Bewachung zu einem gemeinsamen Sicherheitskonzept verbunden werden.",
       },
     ],
   },
