@@ -133,18 +133,24 @@ function SectionBlock({
   section,
   index,
   prevBg,
+  align,
 }: {
   section: Section;
   index: number;
   prevBg: string;
+  align: "left" | "right";
 }) {
   return (
     <section id={section.id} className="content-section" style={fadeFrom(prevBg, index)}>
-      <div className="container content-inner">
-        <h2>{section.title}</h2>
-        {section.subtitle && <p className="section-lead">{section.subtitle}</p>}
-        <div className="prose">
-          <ContentBlocks blocks={section.blocks} />
+      <div className="container">
+        <div
+          className={`content-inner${align === "right" ? " content-inner--right" : ""}`}
+        >
+          <h2>{section.title}</h2>
+          {section.subtitle && <p className="section-lead">{section.subtitle}</p>}
+          <div className="prose">
+            <ContentBlocks blocks={section.blocks} />
+          </div>
         </div>
       </div>
     </section>
@@ -453,7 +459,7 @@ function App() {
           </div>
         </section>
 
-        <SectionBlock section={SECTIONS[0]} index={0} prevBg={HERO_BG} />
+        <SectionBlock section={SECTIONS[0]} index={0} prevBg={HERO_BG} align="left" />
 
         <section id="leistungen" className="services" style={fadeFrom(FLOW_BG[0], 1)}>
           <div className="container">
@@ -487,6 +493,7 @@ function App() {
             section={section}
             index={i + 2}
             prevBg={FLOW_BG[i + 1]}
+            align={(i + 1) % 2 === 0 ? "left" : "right"}
           />
         ))}
 

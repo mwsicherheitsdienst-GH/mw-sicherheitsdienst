@@ -72,33 +72,12 @@ html {
 /* ---------- hero ---------- */
 
 .hero {
-  position: relative;
-  overflow: hidden;
   background: linear-gradient(160deg, var(--black-900), var(--black-950) 65%);
   color: #fff;
   padding: 96px 0 72px;
 }
 
-.hero::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: -120px;
-  width: 700px;
-  height: 700px;
-  transform: translateY(-50%);
-  background-image: url('./assets/mws-logo.jpeg');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.14;
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
-
 .hero-inner {
-  position: relative;
-  z-index: 1;
   max-width: 760px;
 }
 
@@ -209,6 +188,10 @@ html {
 
 .content-inner {
   max-width: 760px;
+}
+
+.content-inner--right {
+  margin-left: auto;
 }
 
 .prose {
@@ -547,21 +530,11 @@ html {
   .footer-inner {
     grid-template-columns: 1fr;
   }
-
-  .hero::after {
-    width: 560px;
-    height: 560px;
-    opacity: 0.12;
-  }
 }
 
 @media (max-width: 640px) {
   .service-grid {
     grid-template-columns: 1fr;
-  }
-
-  .hero::after {
-    display: none;
   }
 
   .field-row {
