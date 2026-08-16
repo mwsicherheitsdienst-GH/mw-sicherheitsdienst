@@ -8,7 +8,7 @@ html {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: var(--navy-950);
+  background: var(--black-950);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -32,7 +32,7 @@ html {
 .brand-icon {
   width: 24px;
   height: 24px;
-  color: var(--gold);
+  color: var(--red);
 }
 
 .brand-logo {
@@ -72,7 +72,7 @@ html {
 /* ---------- hero ---------- */
 
 .hero {
-  background: linear-gradient(160deg, var(--navy-900), var(--navy-950) 65%);
+  background: linear-gradient(160deg, var(--black-900), var(--black-950) 65%);
   color: #fff;
   padding: 96px 0 72px;
 }
@@ -82,7 +82,7 @@ html {
 }
 
 .eyebrow {
-  color: var(--gold-light);
+  color: var(--red-light);
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 0.8rem;
@@ -128,7 +128,7 @@ html {
 .trust-strip svg {
   width: 18px;
   height: 18px;
-  color: var(--gold-light);
+  color: var(--red-light);
   flex-shrink: 0;
 }
 
@@ -162,7 +162,7 @@ html {
 .service-icon {
   width: 28px;
   height: 28px;
-  color: var(--gold);
+  color: var(--red);
   margin-bottom: 16px;
 }
 
@@ -207,7 +207,7 @@ html {
 .why-list svg {
   width: 22px;
   height: 22px;
-  color: var(--gold);
+  color: var(--red);
   flex-shrink: 0;
 }
 
@@ -246,14 +246,14 @@ html {
 }
 
 .contact-card:hover {
-  border-color: var(--gold);
+  border-color: var(--red);
   box-shadow: var(--shadow);
 }
 
 .contact-card svg {
   width: 22px;
   height: 22px;
-  color: var(--gold);
+  color: var(--red);
   flex-shrink: 0;
 }
 
@@ -307,7 +307,7 @@ html {
 
 .field input:focus,
 .field textarea:focus {
-  outline: 2px solid var(--gold);
+  outline: 2px solid var(--red);
   outline-offset: 1px;
 }
 
@@ -323,7 +323,7 @@ html {
 /* ---------- footer / impressum ---------- */
 
 .site-footer {
-  background: var(--navy-950);
+  background: var(--black-950);
   color: rgba(255, 255, 255, 0.7);
   padding: 64px 0 32px;
   font-size: 0.9rem;
@@ -346,7 +346,7 @@ html {
 }
 
 .footer-col a {
-  color: var(--gold-light);
+  color: var(--red-light);
   text-decoration: none;
 }
 
@@ -407,7 +407,7 @@ html {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    background: var(--navy-900);
+    background: var(--black-900);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     max-height: 0;
     overflow: hidden;

@@ -1,10 +1,8 @@
 :root {
-  --navy-950: #070c16;
-  --navy-900: #0b1220;
-  --navy-800: #121b2e;
-  --navy-700: #1c2942;
-  --gold: #c9a227;
-  --gold-light: #e4c766;
+  --black-950: #0b0b0b;
+  --black-900: #161616;
+  --red: #a41517;
+  --red-light: #d63a3d;
   --ink: #101522;
   --text: #4b5468;
   --text-muted: #6b7385;
@@ -103,12 +101,12 @@ ul {
 }
 
 .btn-primary {
-  background: var(--gold);
-  color: var(--navy-950);
+  background: var(--red);
+  color: #fff;
 }
 
 .btn-primary:hover {
-  background: var(--gold-light);
+  background: var(--red-light);
 }
 
 .btn-ghost {
