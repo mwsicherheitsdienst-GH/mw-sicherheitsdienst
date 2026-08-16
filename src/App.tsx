@@ -8,6 +8,8 @@ import {
 } from "react";
 import "./App.css";
 import logo from "./assets/mws-logo.jpeg";
+import cassel from "./assets/cassel.jpg";
+import vienna from "./assets/vienna.jpg";
 import {
   SECTIONS,
   SERVICES,
@@ -151,6 +153,72 @@ function SectionBlock({
           <div className="prose">
             <ContentBlocks blocks={section.blocks} />
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const EINSATZGEBIET_IMAGES = [
+  { src: cassel, alt: "Kassel, Hauptstandort von MWS" },
+  { src: vienna, alt: "Wien" },
+];
+
+function EinsatzgebietSection({
+  section,
+  index,
+  prevBg,
+}: {
+  section: Section;
+  index: number;
+  prevBg: string;
+}) {
+  const [activeImage, setActiveImage] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActiveImage((i) => (i + 1) % EINSATZGEBIET_IMAGES.length);
+    }, 5000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <section
+      id={section.id}
+      className="content-section einsatzgebiet"
+      style={fadeFrom(prevBg, index)}
+    >
+      <div className="einsatzgebiet-bg" aria-hidden="true">
+        {EINSATZGEBIET_IMAGES.map((image, i) => (
+          <img
+            key={image.src}
+            src={image.src}
+            alt=""
+            className="einsatzgebiet-bg-image"
+            style={{ opacity: i === activeImage ? 1 : 0 }}
+          />
+        ))}
+        <div className="einsatzgebiet-bg-overlay" />
+      </div>
+      <div className="container einsatzgebiet-row">
+        <div className="content-inner">
+          <h2>{section.title}</h2>
+          {section.subtitle && <p className="section-lead">{section.subtitle}</p>}
+          <div className="prose">
+            <ContentBlocks blocks={section.blocks} />
+          </div>
+        </div>
+        <div className="einsatzgebiet-collage">
+          <img
+            src={cassel}
+            alt="Kassel, Hauptstandort von MWS"
+            className="einsatzgebiet-collage-image einsatzgebiet-collage-cassel"
+          />
+          <img
+            src={vienna}
+            alt="Wien"
+            className="einsatzgebiet-collage-image einsatzgebiet-collage-vienna"
+          />
         </div>
       </div>
     </section>
@@ -462,7 +530,7 @@ function App() {
           </div>
         </section>
 
-        <SectionBlock section={SECTIONS[0]} index={0} prevBg={HERO_BG} align="left" />
+        <EinsatzgebietSection section={SECTIONS[0]} index={0} prevBg={HERO_BG} />
 
         <section id="leistungen" className="services" style={fadeFrom(FLOW_BG[0], 1)}>
           <div className="container">
