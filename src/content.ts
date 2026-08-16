@@ -5,6 +5,7 @@ export type Block =
   | { type: 'p'; text: string }
   | { type: 'list'; items: string[] }
   | { type: 'tagline'; text: string }
+  | { type: 'heading'; text: string }
 
 export type Service = {
   id: string
@@ -130,31 +131,43 @@ export const SERVICES: Service[] = [
     title: 'Flüchtlings- & Gemeinschaftsunterkünfte',
     summary: 'Respektvoller, professioneller Schutz für Bewohner, Mitarbeiter und Besucher.',
     blocks: [
-      { type: 'p', text: 'Flüchtlings- und Gemeinschaftsunterkünfte stellen besondere Anforderungen an Sicherheitsdienstleister.' },
       {
         type: 'p',
-        text: 'Wir legen großen Wert auf einen **professionellen, respektvollen und deeskalierenden Umgang** mit Bewohnern, Mitarbeitern, Besuchern und Behörden.',
-      },
-      { type: 'p', text: 'Mögliche Aufgaben sind:' },
-      {
-        type: 'list',
-        items: [
-          'Zutrittskontrollen',
-          'Kontrollgänge',
-          'Überwachung festgelegter Bereiche',
-          'Dokumentation besonderer Vorkommnisse',
-          'Unterstützung bei der Durchsetzung von Hausordnungen im vereinbarten und rechtlich zulässigen Rahmen',
-          'Deeskalation bei Konflikten',
-          'unverzügliche Verständigung zuständiger Stellen bei besonderen Ereignissen',
-        ],
+        text: 'Die Bewachung von Flüchtlings- und Gemeinschaftsunterkünften erfordert neben sicherheitsfachlicher Kompetenz ein besonderes Maß an Respekt, interkulturellem Verständnis, Neutralität und Fingerspitzengefühl.',
       },
       {
         type: 'p',
-        text: 'Gerade in diesem Bereich sind **Kommunikationsfähigkeit, interkulturelle Kompetenz, Aufmerksamkeit und professionelles Auftreten** besonders wichtig.',
+        text: 'MWS Sicherheitskonzepte & Sicherheitsdienst begegnet allen Bewohnerinnen und Bewohnern unabhängig von Herkunft, Nationalität, Religion oder kulturellem Hintergrund vorurteilsfrei und respektvoll. Sicherheit bedeutet für uns nicht, bestimmte Personengruppen unter Generalverdacht zu stellen. Sicherheitsmaßnahmen orientieren sich an der jeweiligen Gefährdungslage und am Sicherheitskonzept der Einrichtung.',
       },
       {
         type: 'p',
-        text: '**Herkunft, Religion oder persönliche Lebensgeschichte dürfen niemals Grundlage für pauschale Verdächtigungen oder eine unterschiedliche Behandlung sein.**',
+        text: 'Gleichzeitig gehört zu professioneller Prävention, mögliche Gefahren geschlechtsunabhängig zu betrachten. Extremistische oder terroristische Motivationen sind kein ausschließlich männliches Phänomen. Unsere Sicherheitskonzepte sollen deshalb Risiken sachlich berücksichtigen, ohne daraus Vorurteile gegenüber Bewohnerinnen oder Bewohnern abzuleiten.',
+      },
+      { type: 'heading', text: 'Weibliches Sicherheitspersonal für weibliche Bewohner' },
+      {
+        type: 'p',
+        text: 'Wo im Rahmen eines rechtlich zulässigen und mit dem Auftraggeber abgestimmten Sicherheitskonzeptes Taschen-, Zugangs- oder vergleichbare Sicherheitskontrollen vorgesehen sind, achten wir besonders auf kulturelle und persönliche Sensibilität.',
+      },
+      {
+        type: 'p',
+        text: 'Insbesondere bei weiblichen Bewohnerinnen oder Besucherinnen streben wir an, entsprechende personenbezogene Kontrollen durch weibliches Sicherheitspersonal durchführen zu lassen. Damit verbinden wir Sicherheitsanforderungen mit dem Schutz der Privatsphäre, der persönlichen Würde sowie der Berücksichtigung kultureller und religiöser Bedürfnisse.',
+      },
+      { type: 'heading', text: 'Prävention ohne Vorverurteilung' },
+      {
+        type: 'p',
+        text: 'Unsere Mitarbeiterinnen und Mitarbeiter werden dafür sensibilisiert, auffälliges Verhalten und konkrete Gefahrenmerkmale zu beurteilen – nicht Herkunft, Religion oder äußeres Erscheinungsbild.',
+      },
+      {
+        type: 'p',
+        text: 'Neben Deeskalation, Konfliktprävention und dem Erkennen ungewöhnlicher Situationen sollen auch außergewöhnliche Gefahrenlagen Bestandteil unserer Schulungen sein. Dazu können beispielsweise Hinweise auf Gewalttaten, extremistisch motivierte Handlungen oder terroristische Bedrohungsszenarien gehören.',
+      },
+      {
+        type: 'p',
+        text: 'Dabei ist unsere Rolle klar abgegrenzt: Private Sicherheitskräfte ersetzen weder Polizei noch andere staatliche Sicherheitsbehörden. Im Ernstfall geht es darum, im Rahmen der eigenen Befugnisse angemessen zu reagieren, Menschen zu schützen, Gefahren zu melden, Rettungs- und Polizeikräfte unverzüglich zu verständigen und deren Maßnahmen bestmöglich zu unterstützen.',
+      },
+      {
+        type: 'tagline',
+        text: 'Unser Anspruch lautet: konsequente Sicherheit, respektvoller Umgang und Prävention ohne Vorurteile.',
       },
     ],
   },
@@ -274,79 +287,7 @@ export const SECTIONS: Section[] = [
     ],
   },
   {
-    id: 'inklusion',
-    kicker: '06',
-    title: 'Inklusion & Chancengleichheit',
-    subtitle: 'Sicherheit braucht unterschiedliche Fähigkeiten',
-    tone: 'light',
-    blocks: [
-      {
-        type: 'p',
-        text: 'Bei MWS möchten wir Menschen nach ihren **Fähigkeiten, ihrer Zuverlässigkeit und ihrer Eignung** beurteilen – nicht danach, ob sie einem bestimmten klassischen Bild einer Sicherheitskraft entsprechen.',
-      },
-      { type: 'tagline', text: 'Frauen sind bei uns ausdrücklich willkommen.' },
-      {
-        type: 'p',
-        text: 'Ebenso möchten wir Menschen mit Behinderung berufliche Möglichkeiten im Sicherheitsbereich eröffnen, wenn die jeweilige Tätigkeit zu ihren individuellen Fähigkeiten und den Anforderungen des Arbeitsplatzes passt.',
-      },
-      { type: 'p', text: 'Nicht jede Tätigkeit im Sicherheitsdienst erfordert hohe körperliche Belastbarkeit.' },
-      { type: 'p', text: 'Aufgaben wie beispielsweise:' },
-      {
-        type: 'list',
-        items: [
-          'Videoüberwachung',
-          'Monitoring',
-          'Alarmannahme',
-          'Dokumentation',
-          'Überwachung technischer Systeme',
-          'bestimmte Leitstellenaufgaben',
-        ],
-      },
-      { type: 'p', text: 'können je nach Arbeitsplatz auch für Menschen mit körperlichen Einschränkungen geeignet sein.' },
-      {
-        type: 'p',
-        text: 'Ein Rollstuhlfahrer kann beispielsweise bei geeigneter Arbeitsplatzgestaltung hervorragende Arbeit bei der Beobachtung von Kamerasystemen, der Bewertung eingehender Meldungen, der Dokumentation und der Weiterleitung wichtiger Informationen leisten.',
-      },
-      {
-        type: 'tagline',
-        text: 'Für uns zählt nicht, was ein Mensch nicht kann, sondern welche Aufgabe er zuverlässig und professionell übernehmen kann.',
-      },
-    ],
-  },
-  {
-    id: 'konzept',
-    kicker: '07',
-    title: 'Unser Sicherheitskonzept',
-    subtitle: 'Vorbereitung beginnt vor dem ersten Einsatz',
-    tone: 'alt',
-    blocks: [
-      { type: 'p', text: 'Unser Anspruch beginnt nicht erst dann, wenn ein Sicherheitsmitarbeiter am Objekt steht.' },
-      {
-        type: 'p',
-        text: 'Vor einem neuen Auftrag möchten wir uns bereits **vor dem ersten Kundengespräch** möglichst umfassend über folgende Punkte informieren:',
-      },
-      {
-        type: 'list',
-        items: [
-          'Objekt und Gebäude',
-          'Nutzung des Objekts',
-          'Umgebung und Standort',
-          'öffentlich zugängliche Bereiche',
-          'Besucher- und Kundenaufkommen',
-          'erkennbare Risikofaktoren',
-          'besondere Anforderungen des Auftraggebers',
-        ],
-      },
-      {
-        type: 'p',
-        text: 'Dadurch können wir im Erstgespräch bereits konkrete Fragen stellen und gemeinsam mit dem Auftraggeber ein Sicherheitskonzept entwickeln, das zum tatsächlichen Bedarf passt.',
-      },
-      { type: 'tagline', text: 'Wir möchten nicht einfach Personal bereitstellen – wir möchten Sicherheit planen.' },
-    ],
-  },
-  {
     id: 'mitarbeiter',
-    kicker: '05',
     title: 'Unsere Mitarbeiter',
     subtitle: 'Sicherheit beginnt beim Menschen',
     tone: 'alt',
