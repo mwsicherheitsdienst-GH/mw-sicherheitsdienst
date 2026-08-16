@@ -419,42 +419,45 @@ function App() {
 
       <main>
         <section id="home" className="hero">
-          <div className="container hero-inner">
-            <p className="eyebrow">
-              Sicherheitskonzepte & Sicherheitsdienst aus Kassel
-            </p>
-            <h1>{COMPANY.claim}</h1>
-            <div className="hero-text">
-              <p>
-                {renderInline(
-                  "MWS Sicherheitskonzepte & Sicherheitsdienst mit Hauptstandort in **Kassel** steht für professionelle, diskrete und vorausschauende Sicherheitslösungen.",
-                )}
+          <div className="container hero-row">
+            <img src={logo} alt={COMPANY.name} className="hero-logo" />
+            <div className="hero-inner">
+              <p className="eyebrow">
+                Sicherheitskonzepte & Sicherheitsdienst aus Kassel
               </p>
-              <p>
-                Unser Anspruch besteht nicht nur darin, an einem Einsatzort
-                präsent zu sein. Wir möchten Gefahren frühzeitig erkennen,
-                Risiken reduzieren und gemeinsam mit unseren Auftraggebern
-                Sicherheitskonzepte entwickeln, die zum jeweiligen Objekt und
-                Einsatz passen.
+              <h1>{COMPANY.claim}</h1>
+              <div className="hero-text">
+                <p>
+                  {renderInline(
+                    "MWS Sicherheitskonzepte & Sicherheitsdienst mit Hauptstandort in **Kassel** steht für professionelle, diskrete und vorausschauende Sicherheitslösungen.",
+                  )}
+                </p>
+                <p>
+                  Unser Anspruch besteht nicht nur darin, an einem Einsatzort
+                  präsent zu sein. Wir möchten Gefahren frühzeitig erkennen,
+                  Risiken reduzieren und gemeinsam mit unseren Auftraggebern
+                  Sicherheitskonzepte entwickeln, die zum jeweiligen Objekt und
+                  Einsatz passen.
+                </p>
+                <p>
+                  {renderInline(
+                    "Dabei verbinden wir **qualifizierte Sicherheitsmitarbeiter, moderne Sicherheitstechnik und individuelle Sicherheitskonzepte**.",
+                  )}
+                </p>
+              </div>
+              <p className="hero-tagline">
+                MWS – Mensch. Technik. Verantwortung.
               </p>
-              <p>
-                {renderInline(
-                  "Dabei verbinden wir **qualifizierte Sicherheitsmitarbeiter, moderne Sicherheitstechnik und individuelle Sicherheitskonzepte**.",
-                )}
-              </p>
-            </div>
-            <p className="hero-tagline">
-              MWS – Mensch. Technik. Verantwortung.
-            </p>
-            <div className="cta-row">
-              <a href={`mailto:${COMPANY.email}`} className="btn btn-primary">
-                <MailIcon />
-                Per E-Mail kontaktieren
-              </a>
-              <a href={COMPANY.phoneHref} className="btn btn-ghost">
-                <PhoneIcon />
-                Jetzt anrufen
-              </a>
+              <div className="cta-row">
+                <a href={`mailto:${COMPANY.email}`} className="btn btn-primary">
+                  <MailIcon />
+                  Per E-Mail kontaktieren
+                </a>
+                <a href={COMPANY.phoneHref} className="btn btn-ghost">
+                  <PhoneIcon />
+                  Jetzt anrufen
+                </a>
+              </div>
             </div>
           </div>
         </section>
