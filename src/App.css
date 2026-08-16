@@ -35,6 +35,13 @@ html {
   color: var(--gold);
 }
 
+.brand-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .site-nav {
   display: flex;
   align-items: center;

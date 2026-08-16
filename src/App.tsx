@@ -1,5 +1,6 @@
 import { useState, type ChangeEvent, type SubmitEvent } from 'react'
 import './App.css'
+import logo from './assets/mws-logo.jpeg'
 
 // TODO: Replace every placeholder value below with the real company details
 // before this site goes live (legally required for the Impressum / §5 TMG).
@@ -186,7 +187,7 @@ function App() {
       <header className="site-header">
         <div className="container header-row">
           <a href="#home" className="brand">
-            <ShieldIcon className="brand-icon" />
+            <img src={logo} alt={COMPANY.name} className="brand-logo" />
             {COMPANY.name}
           </a>
 
