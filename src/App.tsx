@@ -1,59 +1,36 @@
-import { useState, type ChangeEvent, type SubmitEvent } from 'react'
+import { useEffect, useRef, useState, type ChangeEvent, type ReactNode, type SubmitEvent } from 'react'
 import './App.css'
 import logo from './assets/mws-logo.jpeg'
+import { SECTIONS, SERVICES, type Block, type Service } from './content'
 
 // TODO: Replace every placeholder value below with the real company details
 // before this site goes live (legally required for the Impressum / §5 TMG).
 const COMPANY = {
-  name: 'MW Sicherheitsdienst',
-  legalName: 'MW Sicherheitsdienst GmbH', // TODO: exact legal (registered) name
-  claim: 'Sicherheit, auf die Sie sich verlassen können.',
+  name: 'MWS Sicherheitskonzepte & Sicherheitsdienst',
+  shortName: 'MWS',
+  legalName: 'MWS Sicherheitskonzepte & Sicherheitsdienst GmbH', // TODO: exact legal (registered) name incl. Rechtsform
+  claim: 'Sicherheit mit Verantwortung. Prävention mit Konzept.',
   phoneDisplay: '+49 30 1234 5678', // TODO
   phoneHref: 'tel:+493012345678', // TODO
   whatsappDisplay: '+49 151 1234 5678', // TODO
   whatsappHref: 'https://wa.me/4915112345678', // TODO: international format, no leading +/00
   email: 'info@mw-sicherheitsdienst.de', // TODO
-  street: 'Musterstraße 1', // TODO
-  zipCity: '10115 Berlin', // TODO
+  street: 'Leipziger Straße 242',
+  zipCity: '34123 Kassel',
   geschaeftsfuehrer: 'Max Mustermann', // TODO
-  registergericht: 'Amtsgericht Berlin (Charlottenburg)', // TODO
+  registergericht: 'Amtsgericht Kassel', // TODO: confirm once HRB-Nummer vorliegt
   registernummer: 'HRB 000000', // TODO
   ustId: 'DE 000000000', // TODO
-  aufsichtsbehoerde: '[zuständiges Ordnungsamt / Gewerbeamt einsetzen]', // TODO, relevant for §34a GewO
+  aufsichtsbehoerde: '[zuständiges Ordnungsamt Kassel einsetzen]', // TODO, relevant for §34a GewO
 }
 
 const NAV_LINKS = [
   { href: '#leistungen', label: 'Leistungen' },
-  { href: '#warum-wir', label: 'Warum wir' },
+  { href: '#technik', label: 'Technik' },
+  { href: '#mitarbeiter', label: 'Mitarbeiter' },
+  { href: '#einsatzgebiet', label: 'Einsatzgebiet' },
   { href: '#kontakt', label: 'Kontakt' },
   { href: '#impressum', label: 'Impressum' },
-]
-
-const SERVICES = [
-  {
-    title: 'Objektschutz',
-    text: 'Zuverlässige Sicherung von Gebäuden, Gelände und Anlagen vor unbefugtem Zutritt.',
-  },
-  {
-    title: 'Empfangs- & Pfortendienst',
-    text: 'Professioneller erster Eindruck für Ihre Besucher, Mitarbeiter und Kunden.',
-  },
-  {
-    title: 'Veranstaltungsschutz',
-    text: 'Individuelle Sicherheitskonzepte und geschultes Personal für Events jeder Größe.',
-  },
-  {
-    title: 'Revier- & Streifendienst',
-    text: 'Regelmäßige Kontrollgänge zur Prävention und schnelle Reaktion im Ernstfall.',
-  },
-  {
-    title: 'Werkschutz',
-    text: 'Umfassende Absicherung von Industrie- und Gewerbeobjekten im Schichtbetrieb.',
-  },
-  {
-    title: 'Personenschutz',
-    text: 'Diskreter, professioneller Schutz für Einzelpersonen und Delegationen.',
-  },
 ]
 
 const TRUST_POINTS = [
@@ -62,6 +39,57 @@ const TRUST_POINTS = [
   '24/7 erreichbar',
   'Individuelle Sicherheitskonzepte',
 ]
+
+const LEISTUNGEN_LIST = [
+  'Objektschutz',
+  'Ladensicherheit',
+  'Doorman',
+  'Veranstaltungssicherheit',
+  'Zugbegleitung',
+  'Flüchtlings- & Gemeinschaftsunterkünfte',
+  'Senioren- & Pflegeeinrichtungen',
+  'Videoüberwachung',
+  'Sicherheitstechnik',
+]
+
+// Renders **bold** markers from the source texts as <strong>.
+function renderInline(text: string): ReactNode {
+  const parts = text.split('**')
+  return parts.map((part, i) => (i % 2 === 1 ? <strong key={i}>{part}</strong> : part))
+}
+
+function ContentBlocks({ blocks }: { blocks: Block[] }) {
+  return (
+    <>
+      {blocks.map((block, i) => {
+        if (block.type === 'p') {
+          return (
+            <p key={i} className="block-p">
+              {renderInline(block.text)}
+            </p>
+          )
+        }
+        if (block.type === 'tagline') {
+          return (
+            <p key={i} className="block-tagline">
+              {renderInline(block.text)}
+            </p>
+          )
+        }
+        return (
+          <ul key={i} className="block-list">
+            {block.items.map((item) => (
+              <li key={item}>
+                <CheckIcon />
+                <span>{renderInline(item)}</span>
+              </li>
+            ))}
+          </ul>
+        )
+      })}
+    </>
+  )
+}
 
 function ShieldIcon({ className }: { className?: string }) {
   return (
@@ -130,6 +158,53 @@ function CheckIcon() {
   )
 }
 
+function CloseIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function ServiceModal({ service, onClose }: { service: Service; onClose: () => void }) {
+  const closeRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    closeRef.current?.focus()
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', onKeyDown)
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = previousOverflow
+    }
+  }, [onClose])
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div
+        className="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={`modal-title-${service.id}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button ref={closeRef} type="button" className="modal-close" onClick={onClose} aria-label="Schließen">
+          <CloseIcon />
+        </button>
+        <ShieldIcon className="modal-icon" />
+        <h3 id={`modal-title-${service.id}`}>{service.title}</h3>
+        <div className="prose">
+          <ContentBlocks blocks={service.blocks} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function ContactForm() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
   const [sent, setSent] = useState(false)
@@ -180,6 +255,9 @@ function ContactForm() {
 }
 
 function App() {
+  const [openServiceId, setOpenServiceId] = useState<string | null>(null)
+  const openService = SERVICES.find((s) => s.id === openServiceId) ?? null
+
   return (
     <>
       <input type="checkbox" id="nav-toggle" className="nav-toggle-input" />
@@ -188,7 +266,7 @@ function App() {
         <div className="container header-row">
           <a href="#home" className="brand">
             <img src={logo} alt={COMPANY.name} className="brand-logo" />
-            {COMPANY.name}
+            {COMPANY.shortName}
           </a>
 
           <label htmlFor="nav-toggle" className="nav-toggle-btn" aria-label="Menü öffnen">
@@ -215,12 +293,26 @@ function App() {
       <main>
         <section id="home" className="hero">
           <div className="container hero-inner">
-            <p className="eyebrow">Sicherheitsdienstleistungen in Deutschland</p>
+            <p className="eyebrow">Sicherheitskonzepte & Sicherheitsdienst aus Kassel</p>
             <h1>{COMPANY.claim}</h1>
-            <p className="hero-text">
-              {COMPANY.legalName} schützt Objekte, Veranstaltungen und Menschen mit geschultem
-              Sicherheitspersonal – zuverlässig, diskret und rund um die Uhr einsatzbereit.
-            </p>
+            <div className="hero-text">
+              <p>
+                {renderInline(
+                  'MWS Sicherheitskonzepte & Sicherheitsdienst mit Hauptstandort in **Kassel** steht für professionelle, diskrete und vorausschauende Sicherheitslösungen.',
+                )}
+              </p>
+              <p>
+                Unser Anspruch besteht nicht nur darin, an einem Einsatzort präsent zu sein. Wir möchten Gefahren
+                frühzeitig erkennen, Risiken reduzieren und gemeinsam mit unseren Auftraggebern Sicherheitskonzepte
+                entwickeln, die zum jeweiligen Objekt und Einsatz passen.
+              </p>
+              <p>
+                {renderInline(
+                  'Dabei verbinden wir **qualifizierte Sicherheitsmitarbeiter, moderne Sicherheitstechnik und individuelle Sicherheitskonzepte**.',
+                )}
+              </p>
+            </div>
+            <p className="hero-tagline">MWS – Mensch. Technik. Verantwortung.</p>
             <div className="cta-row">
               <a href={`mailto:${COMPANY.email}`} className="btn btn-primary">
                 <MailIcon />
@@ -244,43 +336,47 @@ function App() {
 
         <section id="leistungen" className="services">
           <div className="container">
+            <p className="kicker">02</p>
             <h2>Unsere Leistungen</h2>
-            <p className="section-lead">Maßgeschneiderte Sicherheitslösungen für Unternehmen, Veranstalter und Privatpersonen.</p>
+            <p className="section-lead">
+              Maßgeschneiderte Sicherheitslösungen für Unternehmen, Einrichtungen und öffentliche Räume. Auf eine
+              Leistung klicken für Details.
+            </p>
             <div className="service-grid">
               {SERVICES.map((service) => (
-                <div className="service-card" key={service.title}>
+                <button
+                  type="button"
+                  className="service-card"
+                  key={service.id}
+                  onClick={() => setOpenServiceId(service.id)}
+                >
                   <ShieldIcon className="service-icon" />
                   <h3>{service.title}</h3>
-                  <p>{service.text}</p>
-                </div>
+                  <p>{service.summary}</p>
+                  <span className="service-more">Mehr erfahren →</span>
+                </button>
               ))}
             </div>
           </div>
         </section>
 
-        <section id="warum-wir" className="why">
-          <div className="container why-inner">
-            <div>
-              <h2>Warum {COMPANY.name}?</h2>
-              <p className="section-lead">
-                Wir kombinieren geschultes Personal mit klaren Abläufen und persönlicher
-                Erreichbarkeit – damit Sie sich auf Ihr Kerngeschäft konzentrieren können.
-              </p>
+        {SECTIONS.map((section) => (
+          <section key={section.id} id={section.id} className={`content-section content-section--${section.tone}`}>
+            <div className="container content-inner">
+              <p className="kicker">{section.kicker}</p>
+              <h2>{section.title}</h2>
+              {section.subtitle && <p className="section-lead">{section.subtitle}</p>}
+              <div className="prose">
+                <ContentBlocks blocks={section.blocks} />
+              </div>
             </div>
-            <ul className="why-list">
-              {TRUST_POINTS.map((point) => (
-                <li key={point}>
-                  <CheckIcon />
-                  {point}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+          </section>
+        ))}
 
         <section id="kontakt" className="contact">
           <div className="container contact-inner">
             <div>
+              <p className="kicker">10</p>
               <h2>Kontakt aufnehmen</h2>
               <p className="section-lead">
                 Schreiben Sie uns Ihr Anliegen oder kontaktieren Sie uns direkt – wir melden uns
@@ -318,6 +414,12 @@ function App() {
       </main>
 
       <footer id="impressum" className="site-footer">
+        <div className="container footer-top">
+          <p className="footer-brand">{COMPANY.name}</p>
+          <p className="footer-motto">Mensch. Technik. Verantwortung.</p>
+          <p className="footer-services">{LEISTUNGEN_LIST.join(' · ')}</p>
+        </div>
+
         <div className="container footer-inner">
           <div className="footer-col">
             <h2>Impressum</h2>
@@ -358,7 +460,13 @@ function App() {
             <p>&copy; {new Date().getFullYear()} {COMPANY.legalName}. Alle Rechte vorbehalten.</p>
           </div>
         </div>
+
+        <div className="container">
+          <p className="footer-closing">Sicherheit mit Verantwortung – aus Kassel, flexibel im Einsatz.</p>
+        </div>
       </footer>
+
+      {openService && <ServiceModal service={openService} onClose={() => setOpenServiceId(null)} />}
     </>
   )
 }
