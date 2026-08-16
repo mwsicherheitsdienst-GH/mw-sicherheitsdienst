@@ -661,7 +661,7 @@ html {
 
 .footer-inner {
   display: grid;
-  grid-template-columns: 1.3fr 1fr 1fr;
+  grid-template-columns: 1.3fr 1fr;
   gap: 32px;
 }
 
@@ -672,6 +672,16 @@ html {
 .footer-col a {
   color: var(--red-light);
   text-decoration: none;
+}
+
+.footer-link-btn {
+  font: inherit;
+  color: var(--red-light);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .footer-meta {

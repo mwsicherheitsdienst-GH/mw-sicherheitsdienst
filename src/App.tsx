@@ -23,17 +23,17 @@ import {
 // before this site goes live (legally required for the Impressum / §5 TMG).
 const COMPANY = {
   name: "MWS Sicherheitskonzepte & Sicherheitsdienst",
-  legalName: "MWS Sicherheitskonzepte & Sicherheitsdienst GmbH", // TODO: exact legal (registered) name incl. Rechtsform
+  legalName: "MWS Sicherheitskonzepte & Sicherheitsdienst", // TODO: exact legal (registered) name incl. Rechtsform
   claim: "Sicherheit mit Verantwortung. Prävention mit Konzept.",
-  phoneDisplay: "+49 561 43083015",
+  phoneDisplay: "+(49) 0561 43083015",
   phoneHref: "tel:+4956143083015",
   email: "mwsicherheitsdienst@gmail.com", // TODO
   street: "Leipziger Straße 242",
   zipCity: "34123 Kassel",
-  geschaeftsfuehrer: "Max Mustermann", // TODO
+  geschaeftsfuehrer: "Mierweis Safi", // TODO
   registergericht: "Amtsgericht Kassel", // TODO: confirm once HRB-Nummer vorliegt
   registernummer: "HRB 000000", // TODO
-  ustId: "DE 000000000", // TODO
+  ustId: "DE290085905",
   aufsichtsbehoerde: "[zuständiges Ordnungsamt Kassel einsetzen]", // TODO, relevant for §34a GewO
 };
 
@@ -142,14 +142,20 @@ function SectionBlock({
   const { ref, visible } = useRevealOnScroll<HTMLDivElement>();
 
   return (
-    <section id={section.id} className="content-section" style={fadeFrom(prevBg, index)}>
+    <section
+      id={section.id}
+      className="content-section"
+      style={fadeFrom(prevBg, index)}
+    >
       <div className="container">
         <div
           ref={ref}
           className={`content-inner reveal reveal--back${visible ? " reveal--visible" : ""}${align === "right" ? " content-inner--right" : ""}`}
         >
           <h2>{section.title}</h2>
-          {section.subtitle && <p className="section-lead">{section.subtitle}</p>}
+          {section.subtitle && (
+            <p className="section-lead">{section.subtitle}</p>
+          )}
           <div className="prose">
             <ContentBlocks blocks={section.blocks} />
           </div>
@@ -197,7 +203,11 @@ function PhilosophieSection({
   const taglineBlock = section.blocks.find((b) => b.type === "tagline");
 
   return (
-    <section id={section.id} className="content-section" style={fadeFrom(prevBg, index)}>
+    <section
+      id={section.id}
+      className="content-section"
+      style={fadeFrom(prevBg, index)}
+    >
       <div className="container">
         <div
           ref={ref}
@@ -205,7 +215,9 @@ function PhilosophieSection({
         >
           <div className="philosophie-title">
             <h2>{section.title}</h2>
-            {section.subtitle && <p className="section-lead">{section.subtitle}</p>}
+            {section.subtitle && (
+              <p className="section-lead">{section.subtitle}</p>
+            )}
           </div>
           <div className="philosophie-content">
             {listBlock && listBlock.type === "list" && (
@@ -240,7 +252,11 @@ function KonzeptSection({
   const { ref, visible } = useRevealOnScroll<HTMLDivElement>();
 
   return (
-    <section id={section.id} className="content-section" style={fadeFrom(prevBg, index)}>
+    <section
+      id={section.id}
+      className="content-section"
+      style={fadeFrom(prevBg, index)}
+    >
       <div className="container">
         <div
           ref={ref}
@@ -248,7 +264,9 @@ function KonzeptSection({
         >
           <div className="konzept-title">
             <h2>{section.title}</h2>
-            {section.subtitle && <p className="section-lead">{section.subtitle}</p>}
+            {section.subtitle && (
+              <p className="section-lead">{section.subtitle}</p>
+            )}
           </div>
           <div className="konzept-content">
             <div className="prose">
@@ -270,11 +288,17 @@ function MitarbeiterSection({
   index: number;
   prevBg: string;
 }) {
-  const { ref: imageRef, visible: imageVisible } = useRevealOnScroll<HTMLDivElement>();
-  const { ref: textRef, visible: textVisible } = useRevealOnScroll<HTMLDivElement>();
+  const { ref: imageRef, visible: imageVisible } =
+    useRevealOnScroll<HTMLDivElement>();
+  const { ref: textRef, visible: textVisible } =
+    useRevealOnScroll<HTMLDivElement>();
 
   return (
-    <section id={section.id} className="content-section" style={fadeFrom(prevBg, index)}>
+    <section
+      id={section.id}
+      className="content-section"
+      style={fadeFrom(prevBg, index)}
+    >
       <div className="container mitarbeiter-row">
         <div
           ref={imageRef}
@@ -287,7 +311,9 @@ function MitarbeiterSection({
           className={`content-inner reveal reveal--right${textVisible ? " reveal--visible" : ""}`}
         >
           <h2>{section.title}</h2>
-          {section.subtitle && <p className="section-lead">{section.subtitle}</p>}
+          {section.subtitle && (
+            <p className="section-lead">{section.subtitle}</p>
+          )}
           <div className="prose">
             <ContentBlocks blocks={section.blocks} />
           </div>
@@ -312,8 +338,10 @@ function EinsatzgebietSection({
   prevBg: string;
 }) {
   const [activeImage, setActiveImage] = useState(0);
-  const { ref: textRef, visible: textVisible } = useRevealOnScroll<HTMLDivElement>();
-  const { ref: collageRef, visible: collageVisible } = useRevealOnScroll<HTMLDivElement>();
+  const { ref: textRef, visible: textVisible } =
+    useRevealOnScroll<HTMLDivElement>();
+  const { ref: collageRef, visible: collageVisible } =
+    useRevealOnScroll<HTMLDivElement>();
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -346,7 +374,9 @@ function EinsatzgebietSection({
           className={`content-inner reveal reveal--back${textVisible ? " reveal--visible" : ""}`}
         >
           <h2>{section.title}</h2>
-          {section.subtitle && <p className="section-lead">{section.subtitle}</p>}
+          {section.subtitle && (
+            <p className="section-lead">{section.subtitle}</p>
+          )}
           <div className="prose">
             <ContentBlocks blocks={section.blocks} />
           </div>
@@ -511,6 +541,169 @@ function ServiceModal({
   );
 }
 
+function DatenschutzModal({ onClose }: { onClose: () => void }) {
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    closeRef.current?.focus();
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [onClose]);
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div
+        className="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="datenschutz-modal-title"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          ref={closeRef}
+          type="button"
+          className="modal-close"
+          onClick={onClose}
+          aria-label="Schließen"
+        >
+          <CloseIcon />
+        </button>
+        <h3 id="datenschutz-modal-title">Datenschutzerklärung</h3>
+        <div className="prose">
+          <h4 className="block-heading">1. Datenschutz auf einen Blick</h4>
+          <p className="block-p">
+            Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Nachfolgend
+            informieren wir Sie darüber, welche Daten wir erheben, wie wir sie
+            nutzen und welche Rechte Ihnen zustehen.
+          </p>
+          <p className="block-p">
+            <strong>Verantwortlicher für die Datenverarbeitung:</strong>
+            <br />
+            {COMPANY.geschaeftsfuehrer}
+            <br />
+            {COMPANY.street}
+            <br />
+            {COMPANY.zipCity}
+            <br />
+            E-Mail: {COMPANY.email}
+          </p>
+          <h4 className="block-heading">
+            2. Erhebung und Speicherung personenbezogener Daten
+          </h4>
+          <p className="block-p">
+            <strong>a) Beim Besuch der Website</strong>
+          </p>
+          <p className="block-p">
+            Beim Aufrufen unserer Website werden automatisch Informationen
+            gespeichert, darunter:
+          </p>
+          <ul className="block-list">
+            <li>
+              <CheckIcon />
+              <span>IP-Adresse des anfragenden Rechners</span>
+            </li>
+            <li>
+              <CheckIcon />
+              <span>Datum und Uhrzeit des Zugriffs</span>
+            </li>
+            <li>
+              <CheckIcon />
+              <span>Name und URL der abgerufenen Datei</span>
+            </li>
+            <li>
+              <CheckIcon />
+              <span>
+                Referrer-URL (von welcher Website der Zugriff erfolgt)
+              </span>
+            </li>
+            <li>
+              <CheckIcon />
+              <span>Verwendeter Browser und Betriebssystem</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function HaftungsausschlussModal({ onClose }: { onClose: () => void }) {
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    closeRef.current?.focus();
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [onClose]);
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div
+        className="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="haftung-modal-title"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          ref={closeRef}
+          type="button"
+          className="modal-close"
+          onClick={onClose}
+          aria-label="Schließen"
+        >
+          <CloseIcon />
+        </button>
+        <h3 id="haftung-modal-title">Haftungsausschluss</h3>
+        <div className="prose">
+          <p className="block-p">
+            <strong>Haftung für Inhalte:</strong>
+          </p>
+          <p className="block-p">
+            Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene
+            Inhalte auf diesen Seiten nach den allgemeinen Gesetzen
+            verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte
+            oder gespeicherte fremde Informationen zu überwachen oder nach
+            Umständen zu forschen, die auf eine rechtswidrige Tätigkeit
+            hinweisen.
+          </p>
+          <p className="block-p">
+            <strong>Haftung für Links:</strong>
+          </p>
+          <p className="block-p">
+            Unsere Website enthält Links zu externen Websites Dritter, auf
+            deren Inhalte wir keinen Einfluss haben. Deshalb können wir für
+            diese fremden Inhalte auch keine Gewähr übernehmen.
+          </p>
+          <p className="block-p">
+            <strong>Urheberrecht:</strong>
+          </p>
+          <p className="block-p">
+            Die durch den Seitenbetreiber erstellten Inhalte und Werke auf
+            diesen Seiten unterliegen dem deutschen Urheberrecht.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ContactForm() {
   const [form, setForm] = useState({
     name: "",
@@ -594,6 +787,8 @@ function ContactForm() {
 function App() {
   const [openServiceId, setOpenServiceId] = useState<string | null>(null);
   const openService = SERVICES.find((s) => s.id === openServiceId) ?? null;
+  const [datenschutzOpen, setDatenschutzOpen] = useState(false);
+  const [haftungOpen, setHaftungOpen] = useState(false);
   const { ref: leistungenRef, visible: leistungenVisible } =
     useRevealOnScroll<HTMLDivElement>();
   const { ref: kontaktRef, visible: kontaktVisible } =
@@ -679,9 +874,17 @@ function App() {
           </div>
         </section>
 
-        <EinsatzgebietSection section={SECTIONS[0]} index={0} prevBg={HERO_BG} />
+        <EinsatzgebietSection
+          section={SECTIONS[0]}
+          index={0}
+          prevBg={HERO_BG}
+        />
 
-        <section id="leistungen" className="services" style={fadeFrom(FLOW_BG[0], 1)}>
+        <section
+          id="leistungen"
+          className="services"
+          style={fadeFrom(FLOW_BG[0], 1)}
+        >
           <div
             ref={leistungenRef}
             className={`container reveal reveal--back${leistungenVisible ? " reveal--visible" : ""}`}
@@ -743,7 +946,11 @@ function App() {
           ),
         )}
 
-        <section id="kontakt" className="contact" style={fadeFrom(FLOW_BG[4], 5)}>
+        <section
+          id="kontakt"
+          className="contact"
+          style={fadeFrom(FLOW_BG[4], 5)}
+        >
           <div
             ref={kontaktRef}
             className={`container contact-inner reveal reveal--back${kontaktVisible ? " reveal--visible" : ""}`}
@@ -810,31 +1017,30 @@ function App() {
               <br />
               E-Mail: {COMPANY.email}
             </p>
-          </div>
-          <div className="footer-col">
             <p>
-              Registergericht: {COMPANY.registergericht}
+              Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:
               <br />
-              Registernummer: {COMPANY.registernummer}
-              <br />
-              USt-IdNr.: {COMPANY.ustId}
-            </p>
-            <p>
-              Erlaubnis nach §34a GewO, zuständige Behörde:{" "}
-              {COMPANY.aufsichtsbehoerde}
-            </p>
-            <p>
-              Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV:{" "}
-              {COMPANY.geschaeftsfuehrer}
+              {COMPANY.ustId}
             </p>
           </div>
           <div className="footer-col footer-meta">
             <p>
-              <a href="#datenschutz">Datenschutzerklärung</a> — folgt in Kürze.
+              <button
+                type="button"
+                className="footer-link-btn"
+                onClick={() => setDatenschutzOpen(true)}
+              >
+                Datenschutzerklärung
+              </button>
             </p>
             <p>
-              &copy; {new Date().getFullYear()} {COMPANY.legalName}. Alle Rechte
-              vorbehalten.
+              <button
+                type="button"
+                className="footer-link-btn"
+                onClick={() => setHaftungOpen(true)}
+              >
+                Haftungsausschluss
+              </button>
             </p>
           </div>
         </div>
@@ -851,6 +1057,12 @@ function App() {
           service={openService}
           onClose={() => setOpenServiceId(null)}
         />
+      )}
+      {datenschutzOpen && (
+        <DatenschutzModal onClose={() => setDatenschutzOpen(false)} />
+      )}
+      {haftungOpen && (
+        <HaftungsausschlussModal onClose={() => setHaftungOpen(false)} />
       )}
     </>
   );
